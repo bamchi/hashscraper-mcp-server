@@ -1,48 +1,53 @@
-# 🔗 Hashscraper MCP Server
+# Hashscraper MCP Server
 
-> MCP server that converts URLs to clean Markdown/Text for LLM agents
+> MCP server that converts URLs to clean Markdown for LLM agents
 
-[![npm version](https://badge.fury.io/js/hashscraper-mcp-server.svg)](https://www.npmjs.com/package/hashscraper-mcp-server)
+<!-- TODO: Uncomment after npm publish
+[![npm version](https://badge.fury.io/js/@hashscraper/mcp-server.svg)](https://www.npmjs.com/package/@hashscraper/mcp-server)
+-->
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-## What is this?
-
-An [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) server that lets AI agents fetch and read web pages. Simply give it a URL, and it returns clean, LLM-ready content.
-
-**Before:** AI can't read web pages directly  
-**After:** "Summarize this article" just works ✨
 
 ## Features
 
-- 🌐 **URL → Markdown**: Preserves headings, lists, links
-- 📄 **URL → Text**: Plain text extraction
-- 🏷️ **Metadata**: Title, author, date, images
-- 🧹 **Clean Output**: No ads, no navigation, no scripts
-- ⚡ **Fast Response**: Results returned in 1-2 seconds on average
-- 🎭 **JavaScript Rendering**: Works with SPAs
-- 🛡️ **Advanced Bypass**: Reliably handles hard-to-access sites
+- **URL → Markdown**: Preserves headings, lists, links
+- **Clean Output**: No ads, no navigation, no scripts
+- **JavaScript Rendering**: Works with SPAs and dynamic content
+- **Usage Tracking**: Monitor your API credits and usage
 
 ## Quick Start
 
-### Installation
+### 1. Get API Key
 
-```bash
-npm install -g hashscraper-mcp-server
-```
-
-### Get API Key
-
-1. Sign up at [hashscraper.com](https://hashscraper.com) (no credit card required)
+1. Sign up at [hashscraper.com](https://www.hashscraper.com)
 2. Log in and find your API key in [My Info](https://www.hashscraper.com/users/change_userinfo)
 
-### Configure MCP Client
+### 2. Install
 
-**Claude Desktop** (`claude_desktop_config.json`):
+> **Note**: npm package is not yet published. Please install from source for now.
+
+```bash
+git clone https://github.com/bamchi/hashscraper-mcp-server.git
+cd hashscraper-mcp-server
+npm install && npm run build
+```
+
+### 3. Configure MCP Client
+
+Add to your MCP client configuration:
+
+| Client | Config File Location |
+|--------|----------------------|
+| Claude Desktop (macOS) | `~/Library/Application Support/Claude/claude_desktop_config.json` |
+| Claude Desktop (Windows) | `%APPDATA%\Claude\claude_desktop_config.json` |
+| Cline (macOS) | `~/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json` |
+| Cline (Windows) | `%APPDATA%\Code\User\globalStorage\saoudrizwan.claude-dev\settings\cline_mcp_settings.json` |
+
 ```json
 {
   "mcpServers": {
     "hashscraper": {
-      "command": "hashscraper-mcp-server",
+      "command": "node",
+      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
       "env": {
         "HASHSCRAPER_API_KEY": "your-api-key"
       }
@@ -51,13 +56,18 @@ npm install -g hashscraper-mcp-server
 }
 ```
 
-**Cline / Other MCP Clients:**
+> Replace `/absolute/path/to/` with your actual path.
+> Example: `/Users/username/hashscraper-mcp-server/dist/index.js`
+
+<!-- TODO: Uncomment after npm publish
+**After npm publish:**
+
 ```json
 {
   "mcpServers": {
     "hashscraper": {
       "command": "npx",
-      "args": ["hashscraper-mcp-server"],
+      "args": ["-y", "@hashscraper/mcp-server"],
       "env": {
         "HASHSCRAPER_API_KEY": "your-api-key"
       }
@@ -65,81 +75,38 @@ npm install -g hashscraper-mcp-server
   }
 }
 ```
+-->
 
-## Available Tools
+For detailed setup instructions, see the **Usage Guide**:
+- [English](./docs/USAGE_GUIDE_en.md)
+- [한국어](./docs/USAGE_GUIDE_ko.md)
 
-### `fetch_url`
+## MCP Tools
 
-Fetches a URL and returns clean content.
-
-**Parameters:**
-
-| Name | Type | Required | Description |
-|------|------|----------|-------------|
-| `url` | string | ✅ | URL to fetch |
-| `format` | string | | `markdown` (default) or `text` |
-| `include_metadata` | boolean | | Include title, author, date |
-
-**Example:**
-```
-User: Summarize this article https://example.com/news/ai-trends
-AI Agent:
-1. Calls fetch_url("https://example.com/news/ai-trends")
-2. Receives clean markdown
-3. Summarizes content
-4. Returns answer
-```
-
-### `fetch_multiple`
-
-Fetches multiple URLs in parallel.
-
-**Parameters:**
-
-| Name | Type | Required | Description |
-|------|------|----------|-------------|
-| `urls` | string[] | ✅ | URLs to fetch (max 10) |
-| `format` | string | | `markdown` or `text` |
+| Tool | Description |
+|------|-------------|
+| `scrape_url` | Scrapes a webpage and returns AI-readable Markdown |
+| `scrape_urls` | Scrapes multiple URLs in parallel (max 10) |
+| `get_usage` | Check API usage and remaining credits |
 
 ## Why Hashscraper?
 
-Built by the [Hashscraper](https://hashscraper.com) team with 7+ years of web scraping experience:
+Built by the [Hashscraper](https://www.hashscraper.com) team with 7+ years of web scraping experience:
 
-- ✅ 5000+ production crawlers
-- ✅ Reliably handles hard-to-access sites
-- ✅ Fast response times
-- ✅ JavaScript rendering support
-- ✅ 99.9% uptime
+- 5000+ production crawlers
+- Reliably handles hard-to-access sites
+- Fast response times
+- JavaScript rendering support
 
 ## Development
 
 ```bash
-# Clone
-git clone https://github.com/hashscraper/hashscraper-mcp-server.git
-cd hashscraper-mcp-server
-
-# Install
-npm install
-
-# Run locally
-HASHSCRAPER_API_KEY=your-key npm run dev
-
-# Build
-npm run build
-
-# Test
-npm test
+npm install        # Install dependencies
+npm run build      # Build
+npm run dev        # Development mode (watch)
+npm run inspector  # Test with MCP Inspector
 ```
-
-## Related
-
-- [Hashscraper](https://hashscraper.com) - Web scraping platform
-- [MCP Protocol](https://modelcontextprotocol.io/) - Model Context Protocol
 
 ## License
 
-MIT © [Hashscraper](https://hashscraper.com)
-
----
-
-**Questions?** Open an issue or email help@hashscraper.com
+MIT © [Hashscraper](https://www.hashscraper.com)
