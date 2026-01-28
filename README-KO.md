@@ -1,81 +1,81 @@
 # 🔗 Hashscraper MCP Server
 
-> MCP server that converts URLs to clean Markdown/Text for LLM agents
+> URL을 깔끔한 Markdown/Text로 변환하는 MCP 서버
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**⚡ Fast & Reliable** — Built on 7+ years of web scraping expertise, 1,900+ production crawlers, and battle-tested anti-bot handling.
+**⚡ 빠르고 안정적** — 7년 이상의 웹 크롤링 경험, 1,900개 이상의 프로덕션 크롤러, 검증된 anti-bot 처리 기술.
 
-## What is this?
+## 이게 뭔가요?
 
-An [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) server that lets AI agents fetch and read web pages. Simply give it a URL, and it returns clean, LLM-ready content — fast.
+AI 에이전트가 웹 페이지를 읽을 수 있게 해주는 [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) 서버입니다. URL만 주면 깔끔하고 LLM이 바로 사용할 수 있는 콘텐츠를 빠르게 반환합니다.
 
-**Before:** AI can't read web pages directly  
-**After:** "Summarize this article" just works ✨
-
----
-
-## Features
-
-- 🌐 **URL → Markdown**: Preserves headings, lists, links
-- 📄 **URL → Text**: Plain text extraction
-- 🏷️ **Metadata**: Title, author, date, images
-- 🧹 **Clean Output**: No ads, no navigation, no scripts
-- ⚡ **JavaScript Rendering**: Works with SPAs
+**Before:** AI가 웹 페이지를 직접 읽을 수 없음  
+**After:** "이 기사 요약해줘"가 그냥 됨 ✨
 
 ---
 
-## Prerequisites
+## 주요 기능
 
-- [Hashscraper](https://www.hashscraper.com) account
-- Claude Desktop, Cline, or Cursor installed
+- 🌐 **URL → Markdown**: 제목, 목록, 링크 구조 유지
+- 📄 **URL → Text**: 순수 텍스트 추출
+- 🏷️ **메타데이터**: 제목, 작성자, 날짜, 이미지
+- 🧹 **깔끔한 출력**: 광고, 네비게이션, 스크립트 제거
+- ⚡ **JavaScript 렌더링**: SPA 사이트도 지원
+
+---
+
+## 사전 요구사항
+
+- [Hashscraper](https://www.hashscraper.com) 계정
+- Claude Desktop, Cline, 또는 Cursor 설치
 - Node.js 20+
 
-> Note: The npm package is not yet published. Please install from source for now. Once published, you can install via `npx hashscraper-mcp-server`.
+> 참고: npm 패키지는 아직 배포되지 않았습니다. 현재는 소스에서 설치해주세요. 배포 후에는 `npx hashscraper-mcp-server`로 설치 가능합니다.
 
 ---
 
-## Installation from Source
+## 소스에서 설치
 
 ```bash
-# Clone the repository
+# 저장소 클론
 git clone https://github.com/bamchi/hashscraper-mcp-server.git
 cd hashscraper-mcp-server
 
-# Install dependencies and build
+# 의존성 설치 및 빌드
 npm install && npm run build
 ```
 
 ---
 
-## Step 1: Get Your API Key
+## 1단계: API 키 발급
 
-1. Go to [https://www.hashscraper.com](https://www.hashscraper.com)
-2. Sign up or log in
-3. Navigate to [My Info](https://www.hashscraper.com/users/change_userinfo)
-4. Find and copy your API key
+1. [https://www.hashscraper.com](https://www.hashscraper.com) 접속
+2. 회원가입 또는 로그인
+3. [내 정보](https://www.hashscraper.com/users/change_userinfo)로 이동
+4. API 키 복사
 
 ---
 
-## Step 2: Configure MCP Server
+## 2단계: MCP 서버 설정
 
 ### Claude Desktop
 
-**Option A: Via Settings (Recommended)**
+**방법 A: 설정에서 (권장)**
 
-1. Open Claude Desktop
-2. Click Settings (gear icon, bottom left)
-3. Select Developer tab
-4. Click "Edit Config" button
-5. Add the mcpServers configuration (see below)
-6. Save and restart Claude Desktop (Cmd+Q, then reopen)
+1. Claude Desktop 실행
+2. 설정 클릭 (좌측 하단 톱니바퀴 아이콘)
+3. Developer 탭 선택
+4. "Edit Config" 버튼 클릭
+5. mcpServers 설정 추가 (아래 참조)
+6. 저장 후 Claude Desktop 재시작 (Cmd+Q 후 다시 실행)
 
-**Option B: Edit config file directly**
+**방법 B: 설정 파일 직접 수정**
 
 - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
 - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
 
-**Configuration:**
+**설정:**
 
 ```json
 {
@@ -91,11 +91,11 @@ npm install && npm run build
 }
 ```
 
-> Note: Replace `/absolute/path/to/` with the actual path where you cloned the repository.
+> 참고: `/absolute/path/to/`를 저장소를 클론한 실제 경로로 변경하세요.
 
 ### Cline
 
-Config file location:
+설정 파일 위치:
 - macOS: `~/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
 - Windows: `%APPDATA%\Code\User\globalStorage\saoudrizwan.claude-dev\settings\cline_mcp_settings.json`
 
@@ -115,7 +115,7 @@ Config file location:
 
 ### Cursor
 
-Create or edit `.cursor/mcp.json` in your project root:
+프로젝트 루트에 `.cursor/mcp.json` 파일 생성 또는 수정:
 
 ```json
 {
@@ -133,30 +133,30 @@ Create or edit `.cursor/mcp.json` in your project root:
 
 ---
 
-## Step 3: Restart Your AI Client
+## 3단계: AI 클라이언트 재시작
 
-- **Claude Desktop**: Fully quit (Cmd+Q on macOS, Alt+F4 on Windows) and reopen
-- **Cline**: Restart VS Code
-- **Cursor**: Restart the editor
+- **Claude Desktop**: 완전히 종료 (macOS: Cmd+Q, Windows: Alt+F4) 후 다시 실행
+- **Cline**: VS Code 재시작
+- **Cursor**: 에디터 재시작
 
-You should see the MCP server connection indicator.
+MCP 서버 연결 표시가 나타나면 성공입니다.
 
 ---
 
-## Available Tools
+## 사용 가능한 도구
 
 ### `scrape_url`
 
-Scrapes a webpage and returns AI-readable content.
+웹 페이지를 스크래핑하여 AI가 읽을 수 있는 콘텐츠로 반환합니다.
 
-**Parameters:**
+**파라미터:**
 
-| Name     | Type   | Required | Description                              |
-| -------- | ------ | -------- | ---------------------------------------- |
-| `url`    | string | ✅        | URL to scrape                            |
-| `format` | string |          | `markdown` (default) or `text`           |
+| 이름     | 타입   | 필수 | 설명                                     |
+| -------- | ------ | ---- | ---------------------------------------- |
+| `url`    | string | ✅    | 스크래핑할 URL                           |
+| `format` | string |      | `markdown` (기본값) 또는 `text`          |
 
-**Example:**
+**예시:**
 
 ```json
 {
@@ -165,53 +165,53 @@ Scrapes a webpage and returns AI-readable content.
 }
 ```
 
-**Markdown Output:**
+**Markdown 출력:**
 
 ```markdown
-# Article Title
+# 기사 제목
 
-> Author: John Doe | Published: 2024-01-15
+> 작성자: 홍길동 | 게시일: 2024-01-15
 
-## Introduction
+## 소개
 
-This is the main content of the article, converted to clean markdown...
+이것은 기사의 본문 내용입니다. 깔끔한 마크다운으로 변환되었습니다...
 
-## Key Points
+## 핵심 포인트
 
-- Point 1: Important detail
-- Point 2: Another insight
-- [Related Link](https://example.com/related)
+- 포인트 1: 중요한 내용
+- 포인트 2: 또 다른 인사이트
+- [관련 링크](https://example.com/related)
 ```
 
-**Text Output:**
+**Text 출력:**
 
 ```text
-Article Title
+기사 제목
 
-Author: John Doe | Published: 2024-01-15
+작성자: 홍길동 | 게시일: 2024-01-15
 
-Introduction
+소개
 
-This is the main content of the article, converted to plain text...
+이것은 기사의 본문 내용입니다. 순수 텍스트로 변환되었습니다...
 
-Key Points
+핵심 포인트
 
-- Point 1: Important detail
-- Point 2: Another insight
+- 포인트 1: 중요한 내용
+- 포인트 2: 또 다른 인사이트
 ```
 
 ### `scrape_urls`
 
-Scrapes multiple webpages in parallel and returns AI-readable content.
+여러 웹 페이지를 병렬로 스크래핑하여 AI가 읽을 수 있는 콘텐츠로 반환합니다.
 
-**Parameters:**
+**파라미터:**
 
-| Name     | Type     | Required | Description                              |
-| -------- | -------- | -------- | ---------------------------------------- |
-| `urls`   | string[] | ✅        | URLs to scrape (max 10)                  |
-| `format` | string   |          | `markdown` (default) or `text`           |
+| 이름     | 타입     | 필수 | 설명                                     |
+| -------- | -------- | ---- | ---------------------------------------- |
+| `urls`   | string[] | ✅    | 스크래핑할 URL 목록 (최대 10개)          |
+| `format` | string   |      | `markdown` (기본값) 또는 `text`          |
 
-**Example:**
+**예시:**
 
 ```json
 {
@@ -220,74 +220,74 @@ Scrapes multiple webpages in parallel and returns AI-readable content.
 }
 ```
 
-**Output:**
+**출력:**
 
 ```json
 [
   {
     "url": "https://example.com/page1",
-    "content": "Page 1 Title\n\nThis is the content of page 1..."
+    "content": "페이지 1 제목\n\n페이지 1의 내용입니다..."
   },
   {
     "url": "https://example.com/page2",
-    "content": "Page 2 Title\n\nThis is the content of page 2..."
+    "content": "페이지 2 제목\n\n페이지 2의 내용입니다..."
   }
 ]
 ```
 
 ---
 
-## Usage Examples
+## 사용 예시
 
-### Example 1: Summarize a News Article
-
-```
-User: Summarize this article: https://news.example.com/article/12345
-
-Claude: [calls scrape_url]
-
-Here's a summary of the article:
-
-## Key Points
-- Point 1: ...
-- Point 2: ...
-- Point 3: ...
-```
-
-### Example 2: Fetch Page Content
+### 예시 1: 뉴스 기사 요약
 
 ```
-User: Get the content from https://example.com/data
+사용자: 이 기사 요약해줘: https://news.example.com/article/12345
 
-Claude: [calls scrape_url]
+Claude: [scrape_url 호출]
 
-# Page Title
-> Source: https://example.com/data
+기사 요약입니다:
 
-The page content is returned in clean Markdown format...
+## 핵심 포인트
+- 포인트 1: ...
+- 포인트 2: ...
+- 포인트 3: ...
 ```
 
-### Example 3: Research Competitor Pricing
+### 예시 2: 페이지 콘텐츠 가져오기
 
 ```
-User: What's the pricing on https://competitor.com/product/abc
+사용자: https://example.com/data 내용 가져와
 
-Claude: [calls scrape_url]
+Claude: [scrape_url 호출]
 
-Here's the pricing information:
-- **Product**: ABC Premium
-- **Regular Price**: $99.00
-- **Sale Price**: $79.00 (20% off)
+# 페이지 제목
+> 출처: https://example.com/data
+
+페이지 콘텐츠가 깔끔한 Markdown 형식으로 반환되었습니다...
 ```
 
-### Example 4: Read API Documentation
+### 예시 3: 경쟁사 가격 조사
 
 ```
-User: Read https://docs.example.com/api/v2 and write integration code
+사용자: https://competitor.com/product/abc 가격 정보 알려줘
 
-Claude: [calls scrape_url]
+Claude: [scrape_url 호출]
 
-I've analyzed the API documentation. Here's the integration code:
+가격 정보입니다:
+- **제품**: ABC 프리미엄
+- **정가**: 99,000원
+- **할인가**: 79,000원 (20% 할인)
+```
+
+### 예시 4: API 문서 읽기
+
+```
+사용자: https://docs.example.com/api/v2 읽고 연동 코드 작성해줘
+
+Claude: [scrape_url 호출]
+
+API 문서를 분석했습니다. 연동 코드입니다:
 
 // api-client.ts
 export class ExampleApiClient {
@@ -301,13 +301,13 @@ export class ExampleApiClient {
 
 ---
 
-## How It Works
+## 작동 방식
 
 ```
 ┌─────────────────┐
-│     User        │
-│ "Summarize this │
-│   URL for me"   │
+│     사용자       │
+│  "이 URL 내용   │
+│   요약해줘"      │
 └────────┬────────┘
          │
          ▼
@@ -323,63 +323,63 @@ export class ExampleApiClient {
 └────────┬────────┘     └────────┬────────┘
          │                       │
          │◄──────────────────────┘
-         │      HTML Response
+         │      HTML 응답
          ▼
 ┌─────────────────┐
-│   Convert to    │
 │ Markdown / Text │
+│     변환        │
 └────────┬────────┘
          │
          ▼
 ┌─────────────────┐
-│   AI Response   │
-│ (Summary, etc.) │
+│    AI 응답      │
+│  (요약 등)      │
 └─────────────────┘
 ```
 
 ---
 
-## Why Hashscraper?
+## 왜 Hashscraper인가?
 
-Built by the team behind [Hashscraper](https://hashscraper.com), with 7+ years of web scraping experience:
+7년 이상의 웹 크롤링 경험을 가진 [Hashscraper](https://hashscraper.com) 팀이 만들었습니다:
 
-- ✅ 1,900+ production crawlers
-- ✅ JavaScript rendering support
-- ✅ Anti-bot handling
-- ✅ 99.9% uptime
+- ✅ 1,900개 이상의 프로덕션 크롤러
+- ✅ JavaScript 렌더링 지원
+- ✅ Anti-bot 처리
+- ✅ 99.9% 가동률
 
 ---
 
-## Troubleshooting
+## 문제 해결
 
 ### "API key is required"
 
-Make sure your `HASHSCRAPER_API_KEY` environment variable is set correctly in the configuration file.
+설정 파일에서 `HASHSCRAPER_API_KEY` 환경 변수가 올바르게 설정되어 있는지 확인하세요.
 
 ### "Invalid API key"
 
-Verify that your API key is correct and active in your Hashscraper dashboard.
+Hashscraper 대시보드에서 API 키가 올바르고 활성 상태인지 확인하세요.
 
-### MCP Server not connecting
+### MCP 서버가 연결되지 않음
 
-1. Ensure Node.js 20+ is installed
-2. Try running `node /absolute/path/to/hashscraper-mcp-server/dist/index.js` manually to check for errors
-3. Fully quit Claude Desktop (Cmd+Q on macOS, Alt+F4 on Windows) and restart
-4. Check Settings > Developer to verify the server is listed
+1. Node.js 20+ 설치 확인
+2. `node /absolute/path/to/hashscraper-mcp-server/dist/index.js` 수동 실행하여 오류 확인
+3. Claude Desktop 완전 종료 (macOS: Cmd+Q, Windows: Alt+F4) 후 재시작
+4. 설정 > Developer에서 서버가 목록에 있는지 확인
 
-### Developer tab not visible
+### Developer 탭이 보이지 않음
 
-Update Claude Desktop to the latest version: Claude menu → "Check for Updates..."
-
----
-
-## Support
-
-- Email: help@hashscraper.com
-- Issues: [GitHub Issues](https://github.com/bamchi/hashscraper-mcp-server/issues)
+Claude Desktop을 최신 버전으로 업데이트: Claude 메뉴 → "Check for Updates..."
 
 ---
 
-## License
+## 지원
+
+- 이메일: help@hashscraper.com
+- 이슈: [GitHub Issues](https://github.com/bamchi/hashscraper-mcp-server/issues)
+
+---
+
+## 라이선스
 
 MIT © [Hashscraper](https://hashscraper.com)
