@@ -6,7 +6,7 @@
 
 ## 사전 요구사항
 
-- [Hashscraper](https://hashscraper.com) 계정
+- [Hashscraper](https://www.hashscraper.com) 계정
 - Claude Desktop 또는 Cursor 설치
 - Node.js 20+ (npx 사용을 위해)
 
@@ -14,11 +14,11 @@
 
 ## 1단계: API 키 발급
 
-1. [https://hashscraper.com](https://hashscraper.com) 접속
+1. [https://www.hashscraper.com](https://www.hashscraper.com) 접속
 2. 회원가입 또는 로그인
 3. **대시보드** → **API 설정** 이동
 4. 새 API 키 생성
-5. API 키 복사 (예: `hs_api_xxxxxxxxxxxxxx`)
+5. API 키 복사
 
 ---
 
@@ -283,7 +283,7 @@ Hashscraper 대시보드에서 API 키가 올바르고 활성 상태인지 확�
 
 ### "Insufficient credits"
 
-계정의 크레딧이 소진되었습니다. [hashscraper.com](https://hashscraper.com)에서 충전하세요.
+계정의 크레딧이 소진되었습니다. [hashscraper.com](https://www.hashscraper.com)에서 충전하세요.
 
 ### MCP 서버 연결 안됨
 

@@ -6,7 +6,7 @@ This guide explains how to set up and use the Hashscraper MCP Server with AI age
 
 ## Prerequisites
 
-- [Hashscraper](https://hashscraper.com) account
+- [Hashscraper](https://www.hashscraper.com) account
 - Claude Desktop or Cursor installed
 - Node.js 20+ (for npx)
 
@@ -14,11 +14,11 @@ This guide explains how to set up and use the Hashscraper MCP Server with AI age
 
 ## Step 1: Get Your API Key
 
-1. Go to [https://hashscraper.com](https://hashscraper.com)
+1. Go to [https://www.hashscraper.com](https://www.hashscraper.com)
 2. Sign up or log in
 3. Navigate to **Dashboard** → **API Settings**
 4. Generate a new API key
-5. Copy your API key (e.g., `hs_api_xxxxxxxxxxxxxx`)
+5. Copy your API key
 
 ---
 
@@ -283,7 +283,7 @@ Verify that your API key is correct and active in your Hashscraper dashboard.
 
 ### "Insufficient credits"
 
-Your account has run out of credits. Please recharge at [hashscraper.com](https://hashscraper.com).
+Your account has run out of credits. Please recharge at [hashscraper.com](https://www.hashscraper.com).
 
 ### MCP Server not connecting
 

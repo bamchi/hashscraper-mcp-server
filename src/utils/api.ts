@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = process.env.HASHSCRAPER_API_URL || "https://api.hashscraper.com";
+const API_URL = process.env.HASHSCRAPER_API_URL || "http://api.hashscraper.com";
 const API_KEY = process.env.HASHSCRAPER_API_KEY;
 
 function getApiKey(): string {
