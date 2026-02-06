@@ -1,6 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import { scrapeUrl } from "../utils/api.js";
+import { scrapeUrl, formatCreditWarning } from "../utils/api.js";
 
 const ScrapeUrlsSchema = z.object({
   urls: z
@@ -81,12 +81,13 @@ export function registerScrapeUrlsTool(server: McpServer) {
 
         const successCount = results.filter((r) => r.success).length;
         const summary = `# Scrape Results (${successCount}/${results.length} successful)\n\n`;
+        const warning = formatCreditWarning();
 
         return {
           content: [
             {
               type: "text" as const,
-              text: summary + formattedResults.join("\n\n---\n\n"),
+              text: summary + formattedResults.join("\n\n---\n\n") + (warning || ""),
             },
           ],
         };

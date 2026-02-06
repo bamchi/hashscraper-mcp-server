@@ -1,6 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import { scrapeUrl, getApiUrl } from "../utils/api.js";
+import { scrapeUrl, getApiUrl, formatCreditWarning } from "../utils/api.js";
 
 const ScrapeUrlSchema = z.object({
   url: z.string().url().describe("The URL of the webpage to scrape"),
@@ -47,11 +47,13 @@ export function registerScrapeUrlTool(server: McpServer) {
           response.data.content,
         ].join("\n");
 
+        const warning = formatCreditWarning();
+
         return {
           content: [
             {
               type: "text" as const,
-              text: result,
+              text: result + (warning || ""),
             },
           ],
         };

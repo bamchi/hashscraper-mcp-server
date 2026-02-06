@@ -4,6 +4,7 @@ import { registerScrapeUrlTool } from "./tools/scrape-url.js";
 import { registerScrapeUrlsTool } from "./tools/scrape-urls.js";
 import { registerGetUsageTool } from "./tools/get-usage.js";
 import { registerScraperServerStatusTool } from "./tools/scraper-server-status.js";
+import { registerGetBillingTool } from "./tools/get-billing.js";
 
 export function createServer() {
   const server = new McpServer({
@@ -16,6 +17,7 @@ export function createServer() {
   registerScrapeUrlsTool(server);
   registerGetUsageTool(server);
   registerScraperServerStatusTool(server);
+  registerGetBillingTool(server);
 
   return {
     server,
