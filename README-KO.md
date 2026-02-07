@@ -24,6 +24,8 @@ AI 에이전트가 웹 페이지를 읽을 수 있게 해주는 [MCP (Model Cont
 - 🏷️ **메타데이터**: 제목, 작성자, 날짜, 이미지
 - 🧹 **깔끔한 출력**: 광고, 네비게이션, 스크립트 제거
 - ⚡ **JavaScript 렌더링**: SPA 사이트도 지원
+- 💳 **빌링 내장**: 크레딧 추적, 구독 관리, 사용량 분석 (MCP 키)
+- 🔄 **자동 재시도**: 429 Rate Limit 응답 시 Retry-After 기반 자동 재시도
 
 ---
 
@@ -70,7 +72,29 @@ npm install && npm run build
 
 ---
 
+## API 키 종류
+
+HashScraper는 두 가지 타입의 API 키를 지원합니다:
+
+| 타입 | 접두사 | 기능 |
+|------|--------|------|
+| **MCP 키** | `hsmcp_` | 크레딧 과금, Rate Limit, 사용량 추적, 빌링 도구 |
+| **Legacy 키** | (없음) | 기존 서비스 티켓 기반 기본 스크래핑 |
+
+**MCP 키를 추천합니다.** 모든 빌링 및 사용량 도구를 사용할 수 있습니다.
+
+---
+
 ## 1단계: API 키 발급
+
+### MCP 키 (권장)
+
+1. [https://www.hashscraper.com/mcp](https://www.hashscraper.com/mcp) 접속
+2. 회원가입 또는 로그인
+3. [MCP 대시보드](https://www.hashscraper.com/mcp/dashboard) 방문 — Free 플랜(월 500 크레딧)과 API 키가 자동 생성됩니다
+4. `hsmcp_` API 키 복사
+
+### Legacy 키
 
 1. [https://www.hashscraper.com](https://www.hashscraper.com) 접속
 2. 회원가입 또는 로그인
@@ -351,7 +375,7 @@ Total: 3 | Available: 2
 
 ### `get_usage`
 
-API 사용량 및 남은 크레딧을 확인합니다.
+API 사용량 및 남은 크레딧을 확인합니다. MCP 키와 Legacy 키 모두 지원합니다.
 
 **파라미터:** 없음
 
@@ -361,7 +385,22 @@ API 사용량 및 남은 크레딧을 확인합니다.
 {}
 ```
 
-**출력:**
+**출력 (MCP 키):**
+
+```markdown
+## MCP Credits
+
+| Item | Value |
+|------|-------|
+| Mode | MCP |
+| Plan | starter |
+| Subscription Credits | 1,500 |
+| Purchased Credits | 200 |
+| Total Remaining | 1,700 |
+| Period End | 2026-03-01 |
+```
+
+**출력 (Legacy 키):**
 
 ```markdown
 ## API Usage
@@ -372,7 +411,89 @@ API 사용량 및 남은 크레딧을 확인합니다.
 | Total Credits | 10,000 |
 | Used Credits | 2,500 |
 | Remaining Credits | 7,500 |
-| Reset Date | 2024-02-01 |
+| Reset Date | 2026-03-01 |
+```
+
+### `get_billing`
+
+MCP 빌링 정보를 상세 조회합니다. **MCP API 키** (`hsmcp_` 접두사) 필수.
+
+**파라미터:**
+
+| 이름 | 타입 | 필수 | 설명 |
+|------|------|------|------|
+| `action` | string | 예 | `subscription`, `plans`, `daily_usage`, `spending_limits` 중 택 1 |
+| `start_date` | string | | `daily_usage`용 시작일 (YYYY-MM-DD, 기본: 30일 전) |
+| `end_date` | string | | `daily_usage`용 종료일 (YYYY-MM-DD, 기본: 오늘) |
+
+**예시 — 현재 구독 정보:**
+
+```json
+{ "action": "subscription" }
+```
+
+```markdown
+## MCP Subscription
+
+| Item | Value |
+|------|-------|
+| Plan | starter (Starter) |
+| Status | active |
+| Monthly Credits | 2,000 |
+| Price | $19.00/mo |
+| Rate Limit | 30 RPM |
+| Burst Limit | 5 concurrent |
+| Period End | 2026-03-01 |
+```
+
+**예시 — 이용 가능 플랜:**
+
+```json
+{ "action": "plans" }
+```
+
+```markdown
+## Available MCP Plans
+
+| Plan | Credits/mo | Price | RPM | Burst |
+|------|-----------|-------|-----|-------|
+| Free (free) | 500 | Free | 10 | 2 |
+| Starter (starter) | 2,000 | $19.00/mo | 30 | 5 |
+| Pro (pro) | 10,000 | $49.00/mo | 60 | 10 |
+| Business (business) | 50,000 | $149.00/mo | 120 | 20 |
+```
+
+**예시 — 일별 사용량:**
+
+```json
+{ "action": "daily_usage", "start_date": "2026-02-01", "end_date": "2026-02-07" }
+```
+
+```markdown
+## Daily Usage (2026-02-01 ~ 2026-02-07)
+
+| Date | Requests | Credits | Top Tool |
+|------|----------|---------|----------|
+| 2026-02-07 | 45 | 45 | scrape#scrape (45) |
+| 2026-02-06 | 120 | 120 | scrape#scrape (100) |
+
+**Total**: 165 requests, 165 credits
+```
+
+**예시 — 소비 한도:**
+
+```json
+{ "action": "spending_limits" }
+```
+
+```markdown
+## Spending Limits
+
+| Item | Value |
+|------|-------|
+| Daily Limit | 500 credits |
+| Today's Usage | 120 credits |
+| Usage % | 24.0% |
 ```
 
 ---

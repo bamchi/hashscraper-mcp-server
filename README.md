@@ -24,6 +24,8 @@ An [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) server that 
 - 🏷️ **Metadata**: Title, author, date, images
 - 🧹 **Clean Output**: No ads, no navigation, no scripts
 - ⚡ **JavaScript Rendering**: Works with SPAs
+- 💳 **Built-in Billing**: Credit tracking, subscription management, usage analytics (MCP keys)
+- 🔄 **Auto-Retry**: 429 rate limit responses automatically retried with Retry-After
 
 ---
 
@@ -70,7 +72,29 @@ npm install && npm run build
 
 ---
 
+## API Key Types
+
+HashScraper supports two types of API keys:
+
+| Type | Prefix | Features |
+|------|--------|----------|
+| **MCP Key** | `hsmcp_` | Credit billing, rate limits, usage tracking, billing tools |
+| **Legacy Key** | (none) | Basic scraping with existing service tickets |
+
+**MCP keys are recommended** for new users. They unlock all billing and usage tools.
+
+---
+
 ## Step 1: Get Your API Key
+
+### MCP Key (Recommended)
+
+1. Go to [https://www.hashscraper.com/mcp](https://www.hashscraper.com/mcp)
+2. Sign up or log in
+3. Visit the [MCP Dashboard](https://www.hashscraper.com/mcp/dashboard) — your Free plan (500 credits/month) and API key are created automatically
+4. Copy your `hsmcp_` API key
+
+### Legacy Key
 
 1. Go to [https://www.hashscraper.com](https://www.hashscraper.com)
 2. Sign up or log in
@@ -372,7 +396,7 @@ Total: 3 | Available: 2
 
 ### `get_usage`
 
-Check your API usage and remaining credits.
+Check your API usage and remaining credits. Supports both MCP and Legacy API keys.
 
 **Parameters:** None
 
@@ -382,7 +406,22 @@ Check your API usage and remaining credits.
 {}
 ```
 
-**Output:**
+**Output (MCP key):**
+
+```markdown
+## MCP Credits
+
+| Item | Value |
+|------|-------|
+| Mode | MCP |
+| Plan | starter |
+| Subscription Credits | 1,500 |
+| Purchased Credits | 200 |
+| Total Remaining | 1,700 |
+| Period End | 2026-03-01 |
+```
+
+**Output (Legacy key):**
 
 ```markdown
 ## API Usage
@@ -393,7 +432,89 @@ Check your API usage and remaining credits.
 | Total Credits | 10,000 |
 | Used Credits | 2,500 |
 | Remaining Credits | 7,500 |
-| Reset Date | 2024-02-01 |
+| Reset Date | 2026-03-01 |
+```
+
+### `get_billing`
+
+Retrieve detailed MCP billing information. **Requires MCP API key** (`hsmcp_` prefix).
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `action` | string | Yes | `subscription`, `plans`, `daily_usage`, or `spending_limits` |
+| `start_date` | string | | Start date for `daily_usage` (YYYY-MM-DD, default: 30 days ago) |
+| `end_date` | string | | End date for `daily_usage` (YYYY-MM-DD, default: today) |
+
+**Example — Current subscription:**
+
+```json
+{ "action": "subscription" }
+```
+
+```markdown
+## MCP Subscription
+
+| Item | Value |
+|------|-------|
+| Plan | starter (Starter) |
+| Status | active |
+| Monthly Credits | 2,000 |
+| Price | $19.00/mo |
+| Rate Limit | 30 RPM |
+| Burst Limit | 5 concurrent |
+| Period End | 2026-03-01 |
+```
+
+**Example — Available plans:**
+
+```json
+{ "action": "plans" }
+```
+
+```markdown
+## Available MCP Plans
+
+| Plan | Credits/mo | Price | RPM | Burst |
+|------|-----------|-------|-----|-------|
+| Free (free) | 500 | Free | 10 | 2 |
+| Starter (starter) | 2,000 | $19.00/mo | 30 | 5 |
+| Pro (pro) | 10,000 | $49.00/mo | 60 | 10 |
+| Business (business) | 50,000 | $149.00/mo | 120 | 20 |
+```
+
+**Example — Daily usage history:**
+
+```json
+{ "action": "daily_usage", "start_date": "2026-02-01", "end_date": "2026-02-07" }
+```
+
+```markdown
+## Daily Usage (2026-02-01 ~ 2026-02-07)
+
+| Date | Requests | Credits | Top Tool |
+|------|----------|---------|----------|
+| 2026-02-07 | 45 | 45 | scrape#scrape (45) |
+| 2026-02-06 | 120 | 120 | scrape#scrape (100) |
+
+**Total**: 165 requests, 165 credits
+```
+
+**Example — Spending limits:**
+
+```json
+{ "action": "spending_limits" }
+```
+
+```markdown
+## Spending Limits
+
+| Item | Value |
+|------|-------|
+| Daily Limit | 500 credits |
+| Today's Usage | 120 credits |
+| Usage % | 24.0% |
 ```
 
 ---

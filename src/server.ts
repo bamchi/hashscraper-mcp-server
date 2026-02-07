@@ -9,7 +9,7 @@ import { registerGetBillingTool } from "./tools/get-billing.js";
 export function createServer() {
   const server = new McpServer({
     name: "hashscraper",
-    version: "0.1.0",
+    version: "1.1.0",
   });
 
   // Register tools
