@@ -4,7 +4,10 @@
   "description": "HashScraper MCP Server - Web scraping for AI agents. Bypass anti-bot systems and get clean, LLM-ready content via MCP protocol.",
   "type": "module",
   "main": "dist/index.js",
-  "bin": "dist/index.js",
+  "bin": {
+    "hashscraper-mcp": "dist/index.js",
+    "hashscraper-mcp-http": "dist/http.js"
+  },
   "files": [
     "dist",
     "README.md",
@@ -14,8 +17,9 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "start": "node dist/index.js",
+    "start:http": "node dist/http.js",
     "inspector": "npx @modelcontextprotocol/inspector node dist/index.js",
-    "prepublishOnly": "npm run build && chmod +x dist/index.js"
+    "prepublishOnly": "npm run build && chmod +x dist/index.js && chmod +x dist/http.js"
   },
   "keywords": [
     "mcp",
@@ -40,16 +44,17 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.25.0",
-    "axios": "^1.7.0",
-    "turndown": "^7.2.0",
     "@mozilla/readability": "^0.5.0",
+    "axios": "^1.7.0",
     "jsdom": "^24.0.0",
+    "turndown": "^7.2.0",
     "zod": "^3.23.0"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/jsdom": "^21.1.6",
     "@types/node": "^20.0.0",
     "@types/turndown": "^5.0.4",
-    "@types/jsdom": "^21.1.6",
     "typescript": "^5.4.0"
   },
   "engines": {

@@ -1,10 +1,13 @@
 #!/usr/bin/env node
 
-import { createServer } from "./server.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { createMcpServer } from "./server.js";
 
 async function main() {
-  const server = createServer();
-  await server.start();
+  const server = createMcpServer();
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+  console.error("HashScraper MCP server running on stdio");
 }
 
 main().catch((error) => {
