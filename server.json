@@ -1,0 +1,41 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.bamchi/scrapi",
+  "description": "Web scraping for AI agents. Converts URLs to clean, LLM-ready Markdown with anti-bot bypass.",
+  "repository": {
+    "url": "https://github.com/bamchi/scrapi-mcp-server",
+    "source": "github"
+  },
+  "version": "2.0.3",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@scrapi.ai/mcp-server",
+      "version": "2.0.3",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "SCRAPI_API_KEY",
+          "description": "Your Scrapi API key (get one free at https://scrapi.ai/dashboard)",
+          "isRequired": true,
+          "format": "string",
+          "isSecret": true
+        }
+      ]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://scrapi.ai/api",
+      "headers": [
+        {
+          "name": "X-API-Key",
+          "value": "{SCRAPI_API_KEY}"
+        }
+      ]
+    }
+  ]
+}
