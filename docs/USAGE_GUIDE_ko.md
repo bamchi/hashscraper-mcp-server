@@ -516,5 +516,5 @@ Claude Desktop을 최신 버전으로 업데이트하세요: Claude 메뉴 → "
 ## 지원
 
 - **문서**: [https://scrapi.ai](https://scrapi.ai)
-- **이메일**: help@scrapi.ai
+- **이메일**: help@hashscraper.com
 - **이슈**: [GitHub Issues](https://github.com/bamchi/scrapi-mcp-server/issues)
