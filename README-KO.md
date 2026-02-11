@@ -26,12 +26,24 @@ AI 에이전트가 웹 페이지를 읽을 수 있게 해주는 [MCP (Model Cont
 - ⚡ **JavaScript 렌더링**: SPA 사이트도 지원
 - 💳 **빌링 내장**: 크레딧 추적, 구독 관리, 사용량 분석 (MCP 키)
 - 🔄 **자동 재시도**: 429 Rate Limit 응답 시 Retry-After 기반 자동 재시도
+- 🌍 **듀얼 트랜스포트**: Stdio (npx) + Streamable HTTP로 유연한 배포
+
+---
+
+## 트랜스포트 모드
+
+HashScraper MCP Server는 두 가지 트랜스포트 모드를 지원합니다:
+
+| 모드 | 적합한 용도 | Node.js 필요 |
+|------|------------|-------------|
+| **Stdio** | Claude Desktop, Cursor, Cline, Claude Code | Yes (npx 자동) |
+| **Streamable HTTP** | 모든 클라이언트, Node.js 없는 환경 | No |
 
 ---
 
 ## 사전 요구사항
 
-- [Hashscraper](https://www.hashscraper.com) 계정
+- [Hashscraper MCP](https://mcp.hashscraper.com) 계정 (기존 Hashscraper 계정과 별도)
 - Claude Desktop, Cline, 또는 Cursor 설치
 - Node.js 20+
 
@@ -72,34 +84,12 @@ npm install && npm run build
 
 ---
 
-## API 키 종류
-
-HashScraper는 두 가지 타입의 API 키를 지원합니다:
-
-| 타입 | 접두사 | 기능 |
-|------|--------|------|
-| **MCP 키** | `hsmcp_` | 크레딧 과금, Rate Limit, 사용량 추적, 빌링 도구 |
-| **Legacy 키** | (없음) | 기존 서비스 티켓 기반 기본 스크래핑 |
-
-**MCP 키를 추천합니다.** 모든 빌링 및 사용량 도구를 사용할 수 있습니다.
-
----
-
 ## 1단계: API 키 발급
 
-### MCP 키 (권장)
-
-1. [https://www.hashscraper.com/mcp](https://www.hashscraper.com/mcp) 접속
+1. [https://mcp.hashscraper.com](https://mcp.hashscraper.com) 접속
 2. 회원가입 또는 로그인
-3. [MCP 대시보드](https://www.hashscraper.com/mcp/dashboard) 방문 — Free 플랜(월 500 크레딧)과 API 키가 자동 생성됩니다
+3. [MCP 대시보드](https://mcp.hashscraper.com/dashboard) 방문 — Free 플랜(월 500 크레딧)과 API 키가 자동 생성됩니다
 4. `hsmcp_` API 키 복사
-
-### Legacy 키
-
-1. [https://www.hashscraper.com](https://www.hashscraper.com) 접속
-2. 회원가입 또는 로그인
-3. [내 정보](https://www.hashscraper.com/users/change_userinfo)로 이동
-4. API 키 복사
 
 ---
 
@@ -228,6 +218,85 @@ HashScraper는 두 가지 타입의 API 키를 지원합니다:
   }
 }
 ```
+
+### Streamable HTTP
+
+Streamable HTTP로 연결 — 클라이언트 측 Node.js 설치가 필요 없습니다.
+
+**Cursor** (`.cursor/mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "url": "https://mcp.hashscraper.com/mcp-api",
+      "headers": {
+        "X-API-Key": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**Claude Code** (CLI):
+
+```bash
+claude mcp add --transport http hashscraper https://mcp.hashscraper.com/mcp-api \
+  --header "X-API-Key: your-api-key"
+```
+
+**Cline** (`cline_mcp_settings.json`):
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "type": "streamableHttp",
+      "url": "https://mcp.hashscraper.com/mcp-api",
+      "headers": {
+        "X-API-Key": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**Claude Desktop** (`claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp.hashscraper.com/mcp-api",
+        "--header",
+        "X-API-Key: your-api-key"
+      ]
+    }
+  }
+}
+```
+
+> 참고: Claude Desktop은 HTTP 연결 시 [mcp-remote](https://www.npmjs.com/package/mcp-remote) 프록시가 필요합니다.
+
+<details>
+<summary>Self-host: 직접 HTTP 서버 운영하기 (고급)</summary>
+
+호스팅 엔드포인트 대신 자체 인스턴스를 실행할 수 있습니다:
+
+```bash
+HASHSCRAPER_API_KEY=your-api-key npx -y @hashscraper/mcp-server-http
+# 또는 소스에서:
+HASHSCRAPER_API_KEY=your-api-key node dist/http.js
+```
+
+서버가 `http://localhost:3000/mcp-api`에서 시작됩니다. `PORT`와 `HOST` 환경 변수로 설정 가능합니다. 위 클라이언트 설정에서 URL만 self-host URL로 교체하면 됩니다.
+
+**헬스체크:** `GET http://localhost:3000/health`
+
+</details>
 
 ---
 
@@ -375,7 +444,7 @@ Total: 3 | Available: 2
 
 ### `get_usage`
 
-API 사용량 및 남은 크레딧을 확인합니다. MCP 키와 Legacy 키 모두 지원합니다.
+API 사용량 및 남은 크레딧을 확인합니다.
 
 **파라미터:** 없음
 
@@ -385,14 +454,13 @@ API 사용량 및 남은 크레딧을 확인합니다. MCP 키와 Legacy 키 모
 {}
 ```
 
-**출력 (MCP 키):**
+**출력:**
 
 ```markdown
 ## MCP Credits
 
 | Item | Value |
 |------|-------|
-| Mode | MCP |
 | Plan | starter |
 | Subscription Credits | 1,500 |
 | Purchased Credits | 200 |
@@ -400,23 +468,9 @@ API 사용량 및 남은 크레딧을 확인합니다. MCP 키와 Legacy 키 모
 | Period End | 2026-03-01 |
 ```
 
-**출력 (Legacy 키):**
-
-```markdown
-## API Usage
-
-| Item | Value |
-|------|-------|
-| Plan | Pro |
-| Total Credits | 10,000 |
-| Used Credits | 2,500 |
-| Remaining Credits | 7,500 |
-| Reset Date | 2026-03-01 |
-```
-
 ### `get_billing`
 
-MCP 빌링 정보를 상세 조회합니다. **MCP API 키** (`hsmcp_` 접두사) 필수.
+구독, 플랜, 일별 사용량, 소비 한도 등 빌링 정보를 상세 조회합니다.
 
 **파라미터:**
 

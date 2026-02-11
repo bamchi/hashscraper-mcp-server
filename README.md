@@ -26,12 +26,24 @@ An [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) server that 
 - ⚡ **JavaScript Rendering**: Works with SPAs
 - 💳 **Built-in Billing**: Credit tracking, subscription management, usage analytics (MCP keys)
 - 🔄 **Auto-Retry**: 429 rate limit responses automatically retried with Retry-After
+- 🌍 **Dual Transport**: Stdio (npx) + Streamable HTTP for flexible deployment
+
+---
+
+## Transport Modes
+
+HashScraper MCP Server supports two transport modes:
+
+| Mode | Best For | Node.js Required |
+|------|----------|-----------------|
+| **Stdio** | Claude Desktop, Cursor, Cline, Claude Code | Yes (auto via npx) |
+| **Streamable HTTP** | All clients, Node.js-free environments | No |
 
 ---
 
 ## Prerequisites
 
-- [Hashscraper](https://www.hashscraper.com) account
+- [Hashscraper MCP](https://mcp.hashscraper.com) account (separate from the main Hashscraper account)
 - Claude Desktop, Cline, or Cursor installed
 - Node.js 20+
 
@@ -72,34 +84,12 @@ npm install && npm run build
 
 ---
 
-## API Key Types
-
-HashScraper supports two types of API keys:
-
-| Type | Prefix | Features |
-|------|--------|----------|
-| **MCP Key** | `hsmcp_` | Credit billing, rate limits, usage tracking, billing tools |
-| **Legacy Key** | (none) | Basic scraping with existing service tickets |
-
-**MCP keys are recommended** for new users. They unlock all billing and usage tools.
-
----
-
 ## Step 1: Get Your API Key
 
-### MCP Key (Recommended)
-
-1. Go to [https://www.hashscraper.com/mcp](https://www.hashscraper.com/mcp)
+1. Go to [https://mcp.hashscraper.com](https://mcp.hashscraper.com)
 2. Sign up or log in
-3. Visit the [MCP Dashboard](https://www.hashscraper.com/mcp/dashboard) — your Free plan (500 credits/month) and API key are created automatically
+3. Visit the [MCP Dashboard](https://mcp.hashscraper.com/dashboard) — your Free plan (500 credits/month) and API key are created automatically
 4. Copy your `hsmcp_` API key
-
-### Legacy Key
-
-1. Go to [https://www.hashscraper.com](https://www.hashscraper.com)
-2. Sign up or log in
-3. Navigate to [My Info](https://www.hashscraper.com/users/change_userinfo)
-4. Find and copy your API key
 
 ---
 
@@ -249,6 +239,85 @@ Edit `~/.claude.json` or project `.mcp.json`:
 }
 ```
 
+### Streamable HTTP
+
+Connect via Streamable HTTP — no Node.js installation needed on the client side.
+
+**Cursor** (`.cursor/mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "url": "https://mcp.hashscraper.com/mcp-api",
+      "headers": {
+        "X-API-Key": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**Claude Code** (CLI):
+
+```bash
+claude mcp add --transport http hashscraper https://mcp.hashscraper.com/mcp-api \
+  --header "X-API-Key: your-api-key"
+```
+
+**Cline** (`cline_mcp_settings.json`):
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "type": "streamableHttp",
+      "url": "https://mcp.hashscraper.com/mcp-api",
+      "headers": {
+        "X-API-Key": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**Claude Desktop** (`claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp.hashscraper.com/mcp-api",
+        "--header",
+        "X-API-Key: your-api-key"
+      ]
+    }
+  }
+}
+```
+
+> Note: Claude Desktop requires the [mcp-remote](https://www.npmjs.com/package/mcp-remote) proxy for HTTP connections.
+
+<details>
+<summary>Self-host the HTTP server (advanced)</summary>
+
+Run your own instance instead of using the hosted endpoint:
+
+```bash
+HASHSCRAPER_API_KEY=your-api-key npx -y @hashscraper/mcp-server-http
+# or from source:
+HASHSCRAPER_API_KEY=your-api-key node dist/http.js
+```
+
+The server starts at `http://localhost:3000/mcp-api`. Configure with `PORT` and `HOST` environment variables. Replace the URL in the client configurations above with your self-hosted URL.
+
+**Health check:** `GET http://localhost:3000/health`
+
+</details>
+
 ---
 
 ## Step 3: Restart Your AI Client
@@ -396,7 +465,7 @@ Total: 3 | Available: 2
 
 ### `get_usage`
 
-Check your API usage and remaining credits. Supports both MCP and Legacy API keys.
+Check your API usage and remaining credits.
 
 **Parameters:** None
 
@@ -406,14 +475,13 @@ Check your API usage and remaining credits. Supports both MCP and Legacy API key
 {}
 ```
 
-**Output (MCP key):**
+**Output:**
 
 ```markdown
 ## MCP Credits
 
 | Item | Value |
 |------|-------|
-| Mode | MCP |
 | Plan | starter |
 | Subscription Credits | 1,500 |
 | Purchased Credits | 200 |
@@ -421,23 +489,9 @@ Check your API usage and remaining credits. Supports both MCP and Legacy API key
 | Period End | 2026-03-01 |
 ```
 
-**Output (Legacy key):**
-
-```markdown
-## API Usage
-
-| Item | Value |
-|------|-------|
-| Plan | Pro |
-| Total Credits | 10,000 |
-| Used Credits | 2,500 |
-| Remaining Credits | 7,500 |
-| Reset Date | 2026-03-01 |
-```
-
 ### `get_billing`
 
-Retrieve detailed MCP billing information. **Requires MCP API key** (`hsmcp_` prefix).
+Retrieve detailed billing information including subscription, plans, daily usage, and spending limits.
 
 **Parameters:**
 

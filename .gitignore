@@ -6,3 +6,4 @@ dist/
 .idea/
 /test/results/
 docs/internal/
+dump.rdb

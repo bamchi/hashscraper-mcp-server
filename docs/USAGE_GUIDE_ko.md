@@ -6,15 +6,33 @@
 
 ## 사전 요구사항
 
-- [Hashscraper](https://www.hashscraper.com) 계정
+- [Hashscraper MCP](https://mcp.hashscraper.com) 계정 (기존 Hashscraper 계정과 별도)
 - Claude Desktop, Cline, 또는 Cursor 설치
 - Node.js 20+
 
-> **참고**: npm 패키지는 아직 publish되지 않았습니다. 현재는 소스에서 직접 설치해야 합니다. 아래 [소스에서 설치](#소스에서-설치) 섹션을 참고하세요.
-
 ---
 
-## 소스에서 설치
+## 설치
+
+### 방법 A: npx (권장)
+
+별도 설치 없이 MCP 클라이언트 설정에서 바로 사용:
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "npx",
+      "args": ["-y", "@hashscraper/mcp-server"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+### 방법 B: 소스에서 설치
 
 ```bash
 # 저장소 클론
@@ -29,10 +47,10 @@ npm install && npm run build
 
 ## 1단계: API 키 발급
 
-1. [https://www.hashscraper.com](https://www.hashscraper.com) 접속
+1. [https://mcp.hashscraper.com](https://mcp.hashscraper.com) 접속
 2. 회원가입 또는 로그인
-3. [내 정보](https://www.hashscraper.com/users/change_userinfo) 페이지로 이동
-4. API 키 확인 및 복사
+3. [MCP 대시보드](https://mcp.hashscraper.com/dashboard) 방문 — Free 플랜(월 500 크레딧)과 API 키가 자동 생성됩니다
+4. `hsmcp_` API 키 복사
 
 ---
 
@@ -61,7 +79,23 @@ npm install && npm run build
 %APPDATA%\Claude\claude_desktop_config.json
 ```
 
-**설정 내용 (로컬 빌드 사용):**
+**설정 (npx — 권장):**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "npx",
+      "args": ["-y", "@hashscraper/mcp-server"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**설정 (소스 설치 시):**
 
 ```json
 {
@@ -78,25 +112,6 @@ npm install && npm run build
 ```
 
 > **참고:** `/absolute/path/to/` 부분을 저장소를 클론한 실제 경로로 변경하세요.
-> 예시: `/Users/username/hashscraper-mcp-server/dist/index.js`
-
-<!-- TODO: npm publish 이후 주석 해제
-**설정 내용 (npx 사용 - npm publish 이후):**
-
-```json
-{
-  "mcpServers": {
-    "hashscraper": {
-      "command": "npx",
-      "args": ["-y", "@hashscraper/mcp-server"],
-      "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key"
-      }
-    }
-  }
-}
-```
--->
 
 > **참고:** 파일에 다른 설정이 이미 있다면, `mcpServers` 섹션만 추가하세요.
 
@@ -107,48 +122,7 @@ npm install && npm run build
 - **macOS:** `~/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
 - **Windows:** `%APPDATA%\Code\User\globalStorage\saoudrizwan.claude-dev\settings\cline_mcp_settings.json`
 
-**설정 내용 (로컬 빌드 사용):**
-
-```json
-{
-  "mcpServers": {
-    "hashscraper": {
-      "command": "node",
-      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
-      "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key"
-      }
-    }
-  }
-}
-```
-
-> **참고:** `/absolute/path/to/` 부분을 저장소를 클론한 실제 경로로 변경하세요.
-
-### Cursor
-
-프로젝트 루트에 `.cursor/mcp.json` 파일을 생성하거나 수정하세요:
-
-**로컬 빌드 사용:**
-
-```json
-{
-  "mcpServers": {
-    "hashscraper": {
-      "command": "node",
-      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
-      "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key"
-      }
-    }
-  }
-}
-```
-
-> **참고:** `/absolute/path/to/` 부분을 저장소를 클론한 실제 경로로 변경하세요.
-
-<!-- TODO: npm publish 이후 주석 해제
-**npx 사용 (npm publish 이후):**
+**설정 (npx — 권장):**
 
 ```json
 {
@@ -163,7 +137,137 @@ npm install && npm run build
   }
 }
 ```
--->
+
+**설정 (소스 설치 시):**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "node",
+      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+### Cursor
+
+프로젝트 루트에 `.cursor/mcp.json` 파일을 생성하거나 수정하세요:
+
+**설정 (npx — 권장):**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "npx",
+      "args": ["-y", "@hashscraper/mcp-server"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**설정 (소스 설치 시):**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "node",
+      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+### Streamable HTTP
+
+Streamable HTTP로 연결 — 클라이언트 측 Node.js 설치가 필요 없습니다.
+
+**Cursor** (`.cursor/mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "url": "https://mcp.hashscraper.com/mcp-api",
+      "headers": {
+        "X-API-Key": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**Claude Code** (CLI):
+
+```bash
+claude mcp add --transport http hashscraper https://mcp.hashscraper.com/mcp-api \
+  --header "X-API-Key: your-api-key"
+```
+
+**Cline** (`cline_mcp_settings.json`):
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "type": "streamableHttp",
+      "url": "https://mcp.hashscraper.com/mcp-api",
+      "headers": {
+        "X-API-Key": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**Claude Desktop** (`claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp.hashscraper.com/mcp-api",
+        "--header",
+        "X-API-Key: your-api-key"
+      ]
+    }
+  }
+}
+```
+
+> **참고:** Claude Desktop은 HTTP 연결 시 [mcp-remote](https://www.npmjs.com/package/mcp-remote) 프록시가 필요합니다.
+
+<details>
+<summary>Self-host: 직접 HTTP 서버 운영하기 (고급)</summary>
+
+호스팅 엔드포인트 대신 자체 인스턴스를 실행할 수 있습니다:
+
+```bash
+HASHSCRAPER_API_KEY=your-api-key npx -y @hashscraper/mcp-server-http
+# 또는 소스에서:
+HASHSCRAPER_API_KEY=your-api-key node dist/http.js
+```
+
+서버가 `http://localhost:3000/mcp-api`에서 시작됩니다. `PORT`와 `HOST` 환경 변수로 설정 가능합니다. 위 클라이언트 설정에서 URL만 self-host URL로 교체하면 됩니다.
+
+**헬스체크:** `GET http://localhost:3000/health`
+
+</details>
 
 ---
 
@@ -357,6 +461,8 @@ API 사용량과 남은 크레딧을 확인합니다.
 
 로컬 Hashscraper 백엔드로 테스트하려면 `HASHSCRAPER_API_URL`을 설정에 추가하세요:
 
+**Stdio 모드:**
+
 ```json
 {
   "mcpServers": {
@@ -370,6 +476,12 @@ API 사용량과 남은 크레딧을 확인합니다.
     }
   }
 }
+```
+
+**Streamable HTTP 모드:**
+
+```bash
+HASHSCRAPER_API_KEY=your-api-key HASHSCRAPER_API_URL=http://localhost:3000 node dist/http.js
 ```
 
 ---
@@ -386,7 +498,7 @@ Hashscraper 대시보드에서 API 키가 올바르고 활성 상태인지 확�
 
 ### "Insufficient credits"
 
-계정의 크레딧이 소진되었습니다. [hashscraper.com](https://www.hashscraper.com)에서 충전하세요.
+계정의 크레딧이 소진되었습니다. [MCP 대시보드](https://mcp.hashscraper.com/dashboard)에서 충전하세요.
 
 ### MCP 서버 연결 안됨
 

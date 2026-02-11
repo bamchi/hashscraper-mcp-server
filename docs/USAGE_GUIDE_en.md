@@ -6,15 +6,33 @@ This guide explains how to set up and use the Hashscraper MCP Server with AI age
 
 ## Prerequisites
 
-- [Hashscraper](https://www.hashscraper.com) account
+- [Hashscraper MCP](https://mcp.hashscraper.com) account (separate from the main Hashscraper account)
 - Claude Desktop, Cline, or Cursor installed
 - Node.js 20+
 
-> **Note**: The npm package is not yet published. Please install from source for now. See [Installation from Source](#installation-from-source) below.
-
 ---
 
-## Installation from Source
+## Installation
+
+### Option A: npx (Recommended)
+
+No installation needed. Just configure your MCP client:
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "npx",
+      "args": ["-y", "@hashscraper/mcp-server"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+### Option B: Installation from Source
 
 ```bash
 # Clone the repository
@@ -29,10 +47,10 @@ npm install && npm run build
 
 ## Step 1: Get Your API Key
 
-1. Go to [https://www.hashscraper.com](https://www.hashscraper.com)
+1. Go to [https://mcp.hashscraper.com](https://mcp.hashscraper.com)
 2. Sign up or log in
-3. Navigate to [My Info](https://www.hashscraper.com/users/change_userinfo)
-4. Find and copy your API key
+3. Visit the [MCP Dashboard](https://mcp.hashscraper.com/dashboard) — your Free plan (500 credits/month) and API key are created automatically
+4. Copy your `hsmcp_` API key
 
 ---
 
@@ -61,7 +79,23 @@ npm install && npm run build
 %APPDATA%\Claude\claude_desktop_config.json
 ```
 
-**Configuration (using local build):**
+**Configuration (npx — Recommended):**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "npx",
+      "args": ["-y", "@hashscraper/mcp-server"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**Configuration (from source):**
 
 ```json
 {
@@ -78,25 +112,6 @@ npm install && npm run build
 ```
 
 > **Note:** Replace `/absolute/path/to/` with the actual path where you cloned the repository.
-> Example: `/Users/username/hashscraper-mcp-server/dist/index.js`
-
-<!-- TODO: Uncomment after npm publish
-**Configuration (using npx - after npm publish):**
-
-```json
-{
-  "mcpServers": {
-    "hashscraper": {
-      "command": "npx",
-      "args": ["-y", "@hashscraper/mcp-server"],
-      "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key"
-      }
-    }
-  }
-}
-```
--->
 
 > **Note:** If you already have other settings in the file, just add the `mcpServers` section alongside them.
 
@@ -107,48 +122,7 @@ npm install && npm run build
 - **macOS:** `~/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
 - **Windows:** `%APPDATA%\Code\User\globalStorage\saoudrizwan.claude-dev\settings\cline_mcp_settings.json`
 
-**Configuration (using local build):**
-
-```json
-{
-  "mcpServers": {
-    "hashscraper": {
-      "command": "node",
-      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
-      "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key"
-      }
-    }
-  }
-}
-```
-
-> **Note:** Replace `/absolute/path/to/` with the actual path where you cloned the repository.
-
-### Cursor
-
-Create or edit `.cursor/mcp.json` in your project root:
-
-**Using local build:**
-
-```json
-{
-  "mcpServers": {
-    "hashscraper": {
-      "command": "node",
-      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
-      "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key"
-      }
-    }
-  }
-}
-```
-
-> **Note:** Replace `/absolute/path/to/` with the actual path where you cloned the repository.
-
-<!-- TODO: Uncomment after npm publish
-**Using npx (after npm publish):**
+**Configuration (npx — Recommended):**
 
 ```json
 {
@@ -163,7 +137,137 @@ Create or edit `.cursor/mcp.json` in your project root:
   }
 }
 ```
--->
+
+**Configuration (from source):**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "node",
+      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+### Cursor
+
+Create or edit `.cursor/mcp.json` in your project root:
+
+**Configuration (npx — Recommended):**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "npx",
+      "args": ["-y", "@hashscraper/mcp-server"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**Configuration (from source):**
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "node",
+      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
+      "env": {
+        "HASHSCRAPER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+### Streamable HTTP
+
+Connect via Streamable HTTP — no Node.js installation needed on the client side.
+
+**Cursor** (`.cursor/mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "url": "https://mcp.hashscraper.com/mcp-api",
+      "headers": {
+        "X-API-Key": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**Claude Code** (CLI):
+
+```bash
+claude mcp add --transport http hashscraper https://mcp.hashscraper.com/mcp-api \
+  --header "X-API-Key: your-api-key"
+```
+
+**Cline** (`cline_mcp_settings.json`):
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "type": "streamableHttp",
+      "url": "https://mcp.hashscraper.com/mcp-api",
+      "headers": {
+        "X-API-Key": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+**Claude Desktop** (`claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "hashscraper": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp.hashscraper.com/mcp-api",
+        "--header",
+        "X-API-Key: your-api-key"
+      ]
+    }
+  }
+}
+```
+
+> **Note:** Claude Desktop requires the [mcp-remote](https://www.npmjs.com/package/mcp-remote) proxy for HTTP connections.
+
+<details>
+<summary>Self-host the HTTP server (advanced)</summary>
+
+Run your own instance instead of using the hosted endpoint:
+
+```bash
+HASHSCRAPER_API_KEY=your-api-key npx -y @hashscraper/mcp-server-http
+# or from source:
+HASHSCRAPER_API_KEY=your-api-key node dist/http.js
+```
+
+The server starts at `http://localhost:3000/mcp-api`. Configure with `PORT` and `HOST` environment variables. Replace the URL in the client configurations above with your self-hosted URL.
+
+**Health check:** `GET http://localhost:3000/health`
+
+</details>
 
 ---
 
@@ -357,6 +461,8 @@ Check your API usage and remaining credits.
 
 For testing with a local Hashscraper backend, add `HASHSCRAPER_API_URL` to your configuration:
 
+**Stdio mode:**
+
 ```json
 {
   "mcpServers": {
@@ -370,6 +476,12 @@ For testing with a local Hashscraper backend, add `HASHSCRAPER_API_URL` to your 
     }
   }
 }
+```
+
+**Streamable HTTP mode:**
+
+```bash
+HASHSCRAPER_API_KEY=your-api-key HASHSCRAPER_API_URL=http://localhost:3000 node dist/http.js
 ```
 
 ---
@@ -386,7 +498,7 @@ Verify that your API key is correct and active in your Hashscraper dashboard.
 
 ### "Insufficient credits"
 
-Your account has run out of credits. Please recharge at [hashscraper.com](https://www.hashscraper.com).
+Your account has run out of credits. Please recharge at the [MCP Dashboard](https://mcp.hashscraper.com/dashboard).
 
 ### MCP Server not connecting
 
