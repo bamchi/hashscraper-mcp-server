@@ -1,10 +1,23 @@
-# 🔗 Scrapi MCP Server
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo-dark-horizontal.png">
+    <source media="(prefers-color-scheme: light)" srcset="assets/logo-white-horizontal.png">
+    <img alt="Scrapi AI" src="assets/logo-white-horizontal.png" width="360">
+  </picture>
+</p>
 
-[English](README.md)
+<h3 align="center">URL을 깔끔한 Markdown/Text로 변환하는 MCP 서버</h3>
 
-> URL을 깔끔한 Markdown/Text로 변환하는 MCP 서버
+<p align="center">
+  <a href="README.md">English</a> ·
+  <a href="https://scrapi.ai">웹사이트</a> ·
+  <a href="https://scrapi.ai/dashboard">대시보드</a>
+</p>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<p align="center">
+  <a href="https://www.npmjs.com/package/@scrapi.ai/mcp-server"><img src="https://img.shields.io/npm/v/@scrapi.ai/mcp-server.svg" alt="npm version"></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+</p>
 
 **⚡ 빠르고 안정적** — 7년 이상의 웹 크롤링 경험, 1,900개 이상의 프로덕션 크롤러, 검증된 anti-bot 처리 기술.
 

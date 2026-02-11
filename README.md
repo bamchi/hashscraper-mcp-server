@@ -1,10 +1,23 @@
-# 🔗 Scrapi MCP Server
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo-dark-horizontal.png">
+    <source media="(prefers-color-scheme: light)" srcset="assets/logo-white-horizontal.png">
+    <img alt="Scrapi AI" src="assets/logo-white-horizontal.png" width="360">
+  </picture>
+</p>
 
-[한국어](README-KO.md)
+<h3 align="center">MCP server that converts URLs to clean Markdown/Text for LLM agents</h3>
 
-> MCP server that converts URLs to clean Markdown/Text for LLM agents
+<p align="center">
+  <a href="README-KO.md">한국어</a> ·
+  <a href="https://scrapi.ai">Website</a> ·
+  <a href="https://scrapi.ai/dashboard">Dashboard</a>
+</p>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<p align="center">
+  <a href="https://www.npmjs.com/package/@scrapi.ai/mcp-server"><img src="https://img.shields.io/npm/v/@scrapi.ai/mcp-server.svg" alt="npm version"></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+</p>
 
 **⚡ Fast & Reliable** — Built on 7+ years of web scraping expertise, 1,900+ production crawlers, and battle-tested anti-bot handling.
 
