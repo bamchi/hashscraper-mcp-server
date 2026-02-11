@@ -7,7 +7,7 @@ async function main() {
   const server = createMcpServer();
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error("HashScraper MCP server running on stdio");
+  console.error("Scrapi MCP server running on stdio");
 }
 
 main().catch((error) => {

@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 
-const API_URL = process.env.HASHSCRAPER_API_URL || "https://api.hashscraper.com";
-const API_KEY = process.env.HASHSCRAPER_API_KEY;
+const API_URL = process.env.SCRAPI_API_URL || process.env.HASHSCRAPER_API_URL || "https://api.hashscraper.com";
+const API_KEY = process.env.SCRAPI_API_KEY || process.env.HASHSCRAPER_API_KEY;
 
 // 디버그용: 현재 사용 중인 API URL 반환
 export function getApiUrl(): string {
@@ -10,7 +10,7 @@ export function getApiUrl(): string {
 
 function getApiKey(): string {
   if (!API_KEY) {
-    throw new Error("HASHSCRAPER_API_KEY environment variable is not set.");
+    throw new Error("SCRAPI_API_KEY environment variable is not set. (HASHSCRAPER_API_KEY also accepted)");
   }
   return API_KEY;
 }

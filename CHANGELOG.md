@@ -1,13 +1,22 @@
 # Changelog
 
+## [2.0.0] - 2026-02-11
+
+### Changed
+- **Rebranded to Scrapi** — Package renamed from `@hashscraper/mcp-server` to `@scrapi.ai/mcp-server`
+- **CLI commands** — `hashscraper-mcp` → `scrapi`, `hashscraper-mcp-http` → `scrapi-http`
+- **HTTP endpoint** — `/mcp-api` → `/api`
+- **Environment variables** — `SCRAPI_API_KEY` / `SCRAPI_API_URL` (legacy `HASHSCRAPER_*` still accepted)
+- **Domain** — `mcp.hashscraper.com` → `scrapi.ai`
+
 ## [1.2.0] - 2026-02-11
 
 ### Added
-- **Streamable HTTP transport** — Run as a standalone HTTP server via `npx @hashscraper/mcp-server-http` or `node dist/http.js`
-- **`/mcp-api` endpoint** — Stateless Streamable HTTP endpoint with request logging and error tracking
+- **Streamable HTTP transport** — Run as a standalone HTTP server via `npx @scrapi.ai/mcp-server-http` or `node dist/http.js`
+- **`/api` endpoint** — Stateless Streamable HTTP endpoint with request logging and error tracking
 - **`/health` endpoint** — Health check with uptime, request count, and error stats
 - **Dual transport support** — Stdio (default, for Claude Desktop/Cursor/Cline) and Streamable HTTP (for web apps/remote deployment)
-- **`hashscraper-mcp-http` binary** — New npm bin entry for HTTP transport
+- **`scrapi-http` binary** — New npm bin entry for HTTP transport
 
 ## [1.1.0] - 2026-02-07
 

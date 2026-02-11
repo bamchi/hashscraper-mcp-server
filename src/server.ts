@@ -7,8 +7,8 @@ import { registerGetBillingTool } from "./tools/get-billing.js";
 
 export function createMcpServer(): McpServer {
   const server = new McpServer({
-    name: "hashscraper",
-    version: "1.1.0",
+    name: "scrapi",
+    version: "2.0.0",
   });
 
   registerScrapeUrlTool(server);

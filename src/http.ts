@@ -19,7 +19,7 @@ const stats = {
 };
 
 // ── Request logging middleware ──────────────────
-app.use("/mcp-api", (req: Request, _res: Response, next: NextFunction) => {
+app.use("/api", (req: Request, _res: Response, next: NextFunction) => {
   if (req.method === "POST") {
     stats.requests++;
     stats.lastRequestAt = new Date();
@@ -51,7 +51,7 @@ app.get("/health", (_req: Request, res: Response) => {
 });
 
 // ── MCP Streamable HTTP endpoint ───────────────
-app.post("/mcp-api", async (req: Request, res: Response) => {
+app.post("/api", async (req: Request, res: Response) => {
   const server = createMcpServer();
   const transport = new StreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
@@ -79,7 +79,7 @@ app.post("/mcp-api", async (req: Request, res: Response) => {
 });
 
 // GET and DELETE are not supported in stateless mode
-app.get("/mcp-api", (_req: Request, res: Response) => {
+app.get("/api", (_req: Request, res: Response) => {
   res.status(405).json({
     jsonrpc: "2.0",
     error: { code: -32000, message: "Method not allowed. Use POST." },
@@ -87,7 +87,7 @@ app.get("/mcp-api", (_req: Request, res: Response) => {
   });
 });
 
-app.delete("/mcp-api", (_req: Request, res: Response) => {
+app.delete("/api", (_req: Request, res: Response) => {
   res.status(405).json({
     jsonrpc: "2.0",
     error: { code: -32000, message: "Method not allowed." },
@@ -97,7 +97,7 @@ app.delete("/mcp-api", (_req: Request, res: Response) => {
 
 // ── Start server ───────────────────────────────
 app.listen(PORT, HOST, () => {
-  console.error(`HashScraper MCP server running on http://${HOST}:${PORT}/mcp-api`);
+  console.error(`Scrapi MCP server running on http://${HOST}:${PORT}/api`);
 });
 
 process.on("SIGINT", () => {

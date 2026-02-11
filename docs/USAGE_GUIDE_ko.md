@@ -1,12 +1,12 @@
-# Hashscraper MCP Server - 사용 가이드
+# Scrapi MCP Server - 사용 가이드
 
-이 가이드는 Hashscraper MCP Server를 Claude Desktop, Cursor 등 AI 에이전트와 함께 설정하고 사용하는 방법을 설명합니다.
+이 가이드는 Scrapi MCP Server를 Claude Desktop, Cursor 등 AI 에이전트와 함께 설정하고 사용하는 방법을 설명합니다.
 
 ---
 
 ## 사전 요구사항
 
-- [Hashscraper MCP](https://mcp.hashscraper.com) 계정 (기존 Hashscraper 계정과 별도)
+- [Scrapi MCP](https://scrapi.ai) 계정 (기존 Scrapi 계정과 별도)
 - Claude Desktop, Cline, 또는 Cursor 설치
 - Node.js 20+
 
@@ -21,11 +21,11 @@
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
+    "scrapi": {
       "command": "npx",
-      "args": ["-y", "@hashscraper/mcp-server"],
+      "args": ["-y", "@scrapi.ai/mcp-server"],
       "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key"
+        "SCRAPI_API_KEY": "your-api-key"
       }
     }
   }
@@ -47,9 +47,9 @@ npm install && npm run build
 
 ## 1단계: API 키 발급
 
-1. [https://mcp.hashscraper.com](https://mcp.hashscraper.com) 접속
+1. [https://scrapi.ai](https://scrapi.ai) 접속
 2. 회원가입 또는 로그인
-3. [MCP 대시보드](https://mcp.hashscraper.com/dashboard) 방문 — Free 플랜(월 500 크레딧)과 API 키가 자동 생성됩니다
+3. [MCP 대시보드](https://scrapi.ai/dashboard) 방문 — Free 플랜(월 500 크레딧)과 API 키가 자동 생성됩니다
 4. `hsmcp_` API 키 복사
 
 ---
@@ -84,11 +84,11 @@ npm install && npm run build
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
+    "scrapi": {
       "command": "npx",
-      "args": ["-y", "@hashscraper/mcp-server"],
+      "args": ["-y", "@scrapi.ai/mcp-server"],
       "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key"
+        "SCRAPI_API_KEY": "your-api-key"
       }
     }
   }
@@ -100,11 +100,11 @@ npm install && npm run build
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
+    "scrapi": {
       "command": "node",
       "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
       "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key"
+        "SCRAPI_API_KEY": "your-api-key"
       }
     }
   }
@@ -127,11 +127,11 @@ npm install && npm run build
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
+    "scrapi": {
       "command": "npx",
-      "args": ["-y", "@hashscraper/mcp-server"],
+      "args": ["-y", "@scrapi.ai/mcp-server"],
       "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key"
+        "SCRAPI_API_KEY": "your-api-key"
       }
     }
   }
@@ -143,11 +143,11 @@ npm install && npm run build
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
+    "scrapi": {
       "command": "node",
       "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
       "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key"
+        "SCRAPI_API_KEY": "your-api-key"
       }
     }
   }
@@ -163,11 +163,11 @@ npm install && npm run build
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
+    "scrapi": {
       "command": "npx",
-      "args": ["-y", "@hashscraper/mcp-server"],
+      "args": ["-y", "@scrapi.ai/mcp-server"],
       "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key"
+        "SCRAPI_API_KEY": "your-api-key"
       }
     }
   }
@@ -179,11 +179,11 @@ npm install && npm run build
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
+    "scrapi": {
       "command": "node",
       "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
       "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key"
+        "SCRAPI_API_KEY": "your-api-key"
       }
     }
   }
@@ -199,8 +199,8 @@ Streamable HTTP로 연결 — 클라이언트 측 Node.js 설치가 필요 없�
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
-      "url": "https://mcp.hashscraper.com/mcp-api",
+    "scrapi": {
+      "url": "https://scrapi.ai/api",
       "headers": {
         "X-API-Key": "your-api-key"
       }
@@ -212,7 +212,7 @@ Streamable HTTP로 연결 — 클라이언트 측 Node.js 설치가 필요 없�
 **Claude Code** (CLI):
 
 ```bash
-claude mcp add --transport http hashscraper https://mcp.hashscraper.com/mcp-api \
+claude mcp add --transport http scrapi https://scrapi.ai/api \
   --header "X-API-Key: your-api-key"
 ```
 
@@ -221,9 +221,9 @@ claude mcp add --transport http hashscraper https://mcp.hashscraper.com/mcp-api 
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
+    "scrapi": {
       "type": "streamableHttp",
-      "url": "https://mcp.hashscraper.com/mcp-api",
+      "url": "https://scrapi.ai/api",
       "headers": {
         "X-API-Key": "your-api-key"
       }
@@ -237,11 +237,11 @@ claude mcp add --transport http hashscraper https://mcp.hashscraper.com/mcp-api 
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
+    "scrapi": {
       "command": "npx",
       "args": [
         "mcp-remote",
-        "https://mcp.hashscraper.com/mcp-api",
+        "https://scrapi.ai/api",
         "--header",
         "X-API-Key: your-api-key"
       ]
@@ -258,12 +258,12 @@ claude mcp add --transport http hashscraper https://mcp.hashscraper.com/mcp-api 
 호스팅 엔드포인트 대신 자체 인스턴스를 실행할 수 있습니다:
 
 ```bash
-HASHSCRAPER_API_KEY=your-api-key npx -y @hashscraper/mcp-server-http
+SCRAPI_API_KEY=your-api-key npx -y @scrapi.ai/mcp-server-http
 # 또는 소스에서:
-HASHSCRAPER_API_KEY=your-api-key node dist/http.js
+SCRAPI_API_KEY=your-api-key node dist/http.js
 ```
 
-서버가 `http://localhost:3000/mcp-api`에서 시작됩니다. `PORT`와 `HOST` 환경 변수로 설정 가능합니다. 위 클라이언트 설정에서 URL만 self-host URL로 교체하면 됩니다.
+서버가 `http://localhost:3000/api`에서 시작됩니다. `PORT`와 `HOST` 환경 변수로 설정 가능합니다. 위 클라이언트 설정에서 URL만 self-host URL로 교체하면 됩니다.
 
 **헬스체크:** `GET http://localhost:3000/health`
 
@@ -386,7 +386,7 @@ export class ExampleApiClient {
          │
          ▼
 ┌─────────────────┐     ┌─────────────────┐
-│ MCP Server      │────►│ Hashscraper API │
+│ MCP Server      │────►│ Scrapi API │
 │ (scrape_url)    │     │                 │
 └────────┬────────┘     └────────┬────────┘
          │                       │
@@ -459,19 +459,19 @@ API 사용량과 남은 크레딧을 확인합니다.
 
 ## 로컬 개발
 
-로컬 Hashscraper 백엔드로 테스트하려면 `HASHSCRAPER_API_URL`을 설정에 추가하세요:
+로컬 Scrapi 백엔드로 테스트하려면 `SCRAPI_API_URL`을 설정에 추가하세요:
 
 **Stdio 모드:**
 
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
+    "scrapi": {
       "command": "node",
       "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
       "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key",
-        "HASHSCRAPER_API_URL": "http://localhost:3000"
+        "SCRAPI_API_KEY": "your-api-key",
+        "SCRAPI_API_URL": "http://localhost:3000"
       }
     }
   }
@@ -481,7 +481,7 @@ API 사용량과 남은 크레딧을 확인합니다.
 **Streamable HTTP 모드:**
 
 ```bash
-HASHSCRAPER_API_KEY=your-api-key HASHSCRAPER_API_URL=http://localhost:3000 node dist/http.js
+SCRAPI_API_KEY=your-api-key SCRAPI_API_URL=http://localhost:3000 node dist/http.js
 ```
 
 ---
@@ -490,15 +490,15 @@ HASHSCRAPER_API_KEY=your-api-key HASHSCRAPER_API_URL=http://localhost:3000 node 
 
 ### "API key is required"
 
-설정 파일에 `HASHSCRAPER_API_KEY` 환경 변수가 올바르게 설정되어 있는지 확인하세요.
+설정 파일에 `SCRAPI_API_KEY` 환경 변수가 올바르게 설정되어 있는지 확인하세요.
 
 ### "Invalid API key"
 
-Hashscraper 대시보드에서 API 키가 올바르고 활성 상태인지 확인하세요.
+Scrapi 대시보드에서 API 키가 올바르고 활성 상태인지 확인하세요.
 
 ### "Insufficient credits"
 
-계정의 크레딧이 소진되었습니다. [MCP 대시보드](https://mcp.hashscraper.com/dashboard)에서 충전하세요.
+계정의 크레딧이 소진되었습니다. [MCP 대시보드](https://scrapi.ai/dashboard)에서 충전하세요.
 
 ### MCP 서버 연결 안됨
 
@@ -515,6 +515,6 @@ Claude Desktop을 최신 버전으로 업데이트하세요: Claude 메뉴 → "
 
 ## 지원
 
-- **문서**: [https://docs.hashscraper.com](https://docs.hashscraper.com)
-- **이메일**: support@hashscraper.com
+- **문서**: [https://scrapi.ai](https://scrapi.ai)
+- **이메일**: help@scrapi.ai
 - **이슈**: [GitHub Issues](https://github.com/bamchi/hashscraper-mcp-server/issues)

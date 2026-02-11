@@ -1,12 +1,12 @@
 {
-  "name": "@hashscraper/mcp-server",
-  "version": "1.2.0",
-  "description": "HashScraper MCP Server - Web scraping for AI agents. Bypass anti-bot systems and get clean, LLM-ready content via MCP protocol.",
+  "name": "@scrapi.ai/mcp-server",
+  "version": "2.0.0",
+  "description": "Scrapi MCP Server - Web scraping for AI agents. Bypass anti-bot systems and get clean, LLM-ready content via MCP protocol.",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "hashscraper-mcp": "dist/index.js",
-    "hashscraper-mcp-http": "dist/http.js"
+    "scrapi": "dist/index.js",
+    "scrapi-http": "dist/http.js"
   },
   "files": [
     "dist",
@@ -24,7 +24,7 @@
   "keywords": [
     "mcp",
     "model-context-protocol",
-    "hashscraper",
+    "scrapi",
     "web-scraping",
     "scraping",
     "ai",
@@ -32,9 +32,9 @@
     "llm",
     "anti-bot"
   ],
-  "author": "Hashscraper",
+  "author": "Scrapi",
   "license": "MIT",
-  "homepage": "https://www.hashscraper.com/mcp",
+  "homepage": "https://scrapi.ai",
   "repository": {
     "type": "git",
     "url": "https://github.com/bamchi/hashscraper-mcp-server.git"

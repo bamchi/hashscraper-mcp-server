@@ -7,7 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const resultsDir = join(__dirname, "results");
 
 const sites = [
-  { name: "hashscraper", url: "https://www.hashscraper.com" },
+  { name: "scrapi", url: "https://scrapi.ai" },
   { name: "clien", url: "https://clien.net" },
 ];
 

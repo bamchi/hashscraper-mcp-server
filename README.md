@@ -1,4 +1,4 @@
-# 🔗 Hashscraper MCP Server
+# 🔗 Scrapi MCP Server
 
 [한국어](README-KO.md)
 
@@ -32,7 +32,7 @@ An [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) server that 
 
 ## Transport Modes
 
-HashScraper MCP Server supports two transport modes:
+Scrapi MCP Server supports two transport modes:
 
 | Mode | Best For | Node.js Required |
 |------|----------|-----------------|
@@ -43,7 +43,7 @@ HashScraper MCP Server supports two transport modes:
 
 ## Prerequisites
 
-- [Hashscraper MCP](https://mcp.hashscraper.com) account (separate from the main Hashscraper account)
+- [Scrapi MCP](https://scrapi.ai) account (separate from the main Scrapi account)
 - Claude Desktop, Cline, or Cursor installed
 - Node.js 20+
 
@@ -58,11 +58,11 @@ No installation needed. Just configure your MCP client to use `npx`.
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
+    "scrapi": {
       "command": "npx",
-      "args": ["-y", "@hashscraper/mcp-server"],
+      "args": ["-y", "@scrapi.ai/mcp-server"],
       "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key"
+        "SCRAPI_API_KEY": "your-api-key"
       }
     }
   }
@@ -86,9 +86,9 @@ npm install && npm run build
 
 ## Step 1: Get Your API Key
 
-1. Go to [https://mcp.hashscraper.com](https://mcp.hashscraper.com)
+1. Go to [https://scrapi.ai](https://scrapi.ai)
 2. Sign up or log in
-3. Visit the [MCP Dashboard](https://mcp.hashscraper.com/dashboard) — your Free plan (500 credits/month) and API key are created automatically
+3. Visit the [MCP Dashboard](https://scrapi.ai/dashboard) — your Free plan (500 credits/month) and API key are created automatically
 4. Copy your `hsmcp_` API key
 
 ---
@@ -116,11 +116,11 @@ npm install && npm run build
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
+    "scrapi": {
       "command": "npx",
-      "args": ["-y", "@hashscraper/mcp-server"],
+      "args": ["-y", "@scrapi.ai/mcp-server"],
       "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key"
+        "SCRAPI_API_KEY": "your-api-key"
       }
     }
   }
@@ -132,11 +132,11 @@ npm install && npm run build
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
+    "scrapi": {
       "command": "node",
       "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
       "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key"
+        "SCRAPI_API_KEY": "your-api-key"
       }
     }
   }
@@ -156,11 +156,11 @@ Config file location:
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
+    "scrapi": {
       "command": "npx",
-      "args": ["-y", "@hashscraper/mcp-server"],
+      "args": ["-y", "@scrapi.ai/mcp-server"],
       "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key"
+        "SCRAPI_API_KEY": "your-api-key"
       }
     }
   }
@@ -172,11 +172,11 @@ Config file location:
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
+    "scrapi": {
       "command": "node",
       "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
       "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key"
+        "SCRAPI_API_KEY": "your-api-key"
       }
     }
   }
@@ -192,11 +192,11 @@ Create or edit `.cursor/mcp.json` in your project root:
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
+    "scrapi": {
       "command": "npx",
-      "args": ["-y", "@hashscraper/mcp-server"],
+      "args": ["-y", "@scrapi.ai/mcp-server"],
       "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key"
+        "SCRAPI_API_KEY": "your-api-key"
       }
     }
   }
@@ -208,11 +208,11 @@ Create or edit `.cursor/mcp.json` in your project root:
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
+    "scrapi": {
       "command": "node",
       "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
       "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key"
+        "SCRAPI_API_KEY": "your-api-key"
       }
     }
   }
@@ -228,11 +228,11 @@ Edit `~/.claude.json` or project `.mcp.json`:
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
+    "scrapi": {
       "command": "npx",
-      "args": ["-y", "@hashscraper/mcp-server"],
+      "args": ["-y", "@scrapi.ai/mcp-server"],
       "env": {
-        "HASHSCRAPER_API_KEY": "your-api-key"
+        "SCRAPI_API_KEY": "your-api-key"
       }
     }
   }
@@ -248,8 +248,8 @@ Connect via Streamable HTTP — no Node.js installation needed on the client sid
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
-      "url": "https://mcp.hashscraper.com/mcp-api",
+    "scrapi": {
+      "url": "https://scrapi.ai/api",
       "headers": {
         "X-API-Key": "your-api-key"
       }
@@ -261,7 +261,7 @@ Connect via Streamable HTTP — no Node.js installation needed on the client sid
 **Claude Code** (CLI):
 
 ```bash
-claude mcp add --transport http hashscraper https://mcp.hashscraper.com/mcp-api \
+claude mcp add --transport http scrapi https://scrapi.ai/api \
   --header "X-API-Key: your-api-key"
 ```
 
@@ -270,9 +270,9 @@ claude mcp add --transport http hashscraper https://mcp.hashscraper.com/mcp-api 
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
+    "scrapi": {
       "type": "streamableHttp",
-      "url": "https://mcp.hashscraper.com/mcp-api",
+      "url": "https://scrapi.ai/api",
       "headers": {
         "X-API-Key": "your-api-key"
       }
@@ -286,11 +286,11 @@ claude mcp add --transport http hashscraper https://mcp.hashscraper.com/mcp-api 
 ```json
 {
   "mcpServers": {
-    "hashscraper": {
+    "scrapi": {
       "command": "npx",
       "args": [
         "mcp-remote",
-        "https://mcp.hashscraper.com/mcp-api",
+        "https://scrapi.ai/api",
         "--header",
         "X-API-Key: your-api-key"
       ]
@@ -307,12 +307,12 @@ claude mcp add --transport http hashscraper https://mcp.hashscraper.com/mcp-api 
 Run your own instance instead of using the hosted endpoint:
 
 ```bash
-HASHSCRAPER_API_KEY=your-api-key npx -y @hashscraper/mcp-server-http
+SCRAPI_API_KEY=your-api-key npx -y @scrapi.ai/mcp-server-http
 # or from source:
-HASHSCRAPER_API_KEY=your-api-key node dist/http.js
+SCRAPI_API_KEY=your-api-key node dist/http.js
 ```
 
-The server starts at `http://localhost:3000/mcp-api`. Configure with `PORT` and `HOST` environment variables. Replace the URL in the client configurations above with your self-hosted URL.
+The server starts at `http://localhost:3000/api`. Configure with `PORT` and `HOST` environment variables. Replace the URL in the client configurations above with your self-hosted URL.
 
 **Health check:** `GET http://localhost:3000/health`
 
@@ -654,7 +654,7 @@ export class ExampleApiClient {
          │
          ▼
 ┌─────────────────┐     ┌─────────────────┐
-│   MCP Server    │────►│ Hashscraper API │
+│   MCP Server    │────►│   Scrapi API    │
 │  (scrape_url)   │     │ (format param)  │
 └────────┬────────┘     └────────┬────────┘
          │                       │
@@ -669,9 +669,9 @@ export class ExampleApiClient {
 
 ---
 
-## Why Hashscraper?
+## Why Scrapi?
 
-Built by the team behind [Hashscraper](https://www.hashscraper.com), with 7+ years of web scraping experience:
+Built by the team behind [Scrapi](https://scrapi.ai), with 7+ years of web scraping experience:
 
 - ✅ 1,900+ production crawlers
 - ✅ JavaScript rendering support
@@ -684,11 +684,11 @@ Built by the team behind [Hashscraper](https://www.hashscraper.com), with 7+ yea
 
 ### "API key is required"
 
-Make sure your `HASHSCRAPER_API_KEY` environment variable is set correctly in the configuration file.
+Make sure your `SCRAPI_API_KEY` environment variable is set correctly in the configuration file.
 
 ### "Invalid API key"
 
-Verify that your API key is correct and active in your Hashscraper dashboard.
+Verify that your API key is correct and active in your Scrapi dashboard.
 
 ### MCP Server not connecting
 
@@ -705,11 +705,11 @@ Update Claude Desktop to the latest version: Claude menu → "Check for Updates.
 
 ## Support
 
-- Email: help@hashscraper.com
+- Email: help@scrapi.ai
 - Issues: [GitHub Issues](https://github.com/bamchi/hashscraper-mcp-server/issues)
 
 ---
 
 ## License
 
-MIT © [Hashscraper](https://www.hashscraper.com)
+MIT © [Scrapi](https://scrapi.ai)
