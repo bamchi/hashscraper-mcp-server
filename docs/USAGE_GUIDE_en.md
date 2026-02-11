@@ -36,8 +36,8 @@ No installation needed. Just configure your MCP client:
 
 ```bash
 # Clone the repository
-git clone https://github.com/bamchi/hashscraper-mcp-server.git
-cd hashscraper-mcp-server
+git clone https://github.com/bamchi/scrapi-mcp-server.git
+cd scrapi-mcp-server
 
 # Install dependencies and build
 npm install && npm run build
@@ -102,7 +102,7 @@ npm install && npm run build
   "mcpServers": {
     "scrapi": {
       "command": "node",
-      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
+      "args": ["/absolute/path/to/scrapi-mcp-server/dist/index.js"],
       "env": {
         "SCRAPI_API_KEY": "your-api-key"
       }
@@ -145,7 +145,7 @@ npm install && npm run build
   "mcpServers": {
     "scrapi": {
       "command": "node",
-      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
+      "args": ["/absolute/path/to/scrapi-mcp-server/dist/index.js"],
       "env": {
         "SCRAPI_API_KEY": "your-api-key"
       }
@@ -181,7 +181,7 @@ Create or edit `.cursor/mcp.json` in your project root:
   "mcpServers": {
     "scrapi": {
       "command": "node",
-      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
+      "args": ["/absolute/path/to/scrapi-mcp-server/dist/index.js"],
       "env": {
         "SCRAPI_API_KEY": "your-api-key"
       }
@@ -258,7 +258,7 @@ claude mcp add --transport http scrapi https://scrapi.ai/api \
 Run your own instance instead of using the hosted endpoint:
 
 ```bash
-SCRAPI_API_KEY=your-api-key npx -y @scrapi.ai/mcp-server-http
+SCRAPI_API_KEY=your-api-key npx -y -p @scrapi.ai/mcp-server scrapi-http
 # or from source:
 SCRAPI_API_KEY=your-api-key node dist/http.js
 ```
@@ -468,7 +468,7 @@ For testing with a local Scrapi backend, add `SCRAPI_API_URL` to your configurat
   "mcpServers": {
     "scrapi": {
       "command": "node",
-      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
+      "args": ["/absolute/path/to/scrapi-mcp-server/dist/index.js"],
       "env": {
         "SCRAPI_API_KEY": "your-api-key",
         "SCRAPI_API_URL": "http://localhost:3000"
@@ -503,7 +503,7 @@ Your account has run out of credits. Please recharge at the [MCP Dashboard](http
 ### MCP Server not connecting
 
 1. Ensure Node.js 20+ is installed
-2. Try running `node /absolute/path/to/hashscraper-mcp-server/dist/index.js` manually to check for errors
+2. Try running `node /absolute/path/to/scrapi-mcp-server/dist/index.js` manually to check for errors
 3. Fully quit Claude Desktop (Cmd+Q on macOS, Alt+F4 on Windows) and restart
 4. Check Settings > Developer to verify the server is listed
 
@@ -517,4 +517,4 @@ Update Claude Desktop to the latest version: Claude menu → "Check for Updates.
 
 - **Documentation**: [https://scrapi.ai](https://scrapi.ai)
 - **Email**: help@scrapi.ai
-- **Issues**: [GitHub Issues](https://github.com/bamchi/hashscraper-mcp-server/issues)
+- **Issues**: [GitHub Issues](https://github.com/bamchi/scrapi-mcp-server/issues)

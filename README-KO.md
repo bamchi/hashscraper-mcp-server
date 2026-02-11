@@ -75,8 +75,8 @@ Scrapi MCP Server는 두 가지 트랜스포트 모드를 지원합니다:
 
 ```bash
 # 저장소 클론
-git clone https://github.com/bamchi/hashscraper-mcp-server.git
-cd hashscraper-mcp-server
+git clone https://github.com/bamchi/scrapi-mcp-server.git
+cd scrapi-mcp-server
 
 # 의존성 설치 및 빌드
 npm install && npm run build
@@ -134,7 +134,7 @@ npm install && npm run build
   "mcpServers": {
     "scrapi": {
       "command": "node",
-      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
+      "args": ["/absolute/path/to/scrapi-mcp-server/dist/index.js"],
       "env": {
         "SCRAPI_API_KEY": "your-api-key"
       }
@@ -174,7 +174,7 @@ npm install && npm run build
   "mcpServers": {
     "scrapi": {
       "command": "node",
-      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
+      "args": ["/absolute/path/to/scrapi-mcp-server/dist/index.js"],
       "env": {
         "SCRAPI_API_KEY": "your-api-key"
       }
@@ -210,7 +210,7 @@ npm install && npm run build
   "mcpServers": {
     "scrapi": {
       "command": "node",
-      "args": ["/absolute/path/to/hashscraper-mcp-server/dist/index.js"],
+      "args": ["/absolute/path/to/scrapi-mcp-server/dist/index.js"],
       "env": {
         "SCRAPI_API_KEY": "your-api-key"
       }
@@ -287,7 +287,7 @@ claude mcp add --transport http scrapi https://scrapi.ai/api \
 호스팅 엔드포인트 대신 자체 인스턴스를 실행할 수 있습니다:
 
 ```bash
-SCRAPI_API_KEY=your-api-key npx -y @scrapi.ai/mcp-server-http
+SCRAPI_API_KEY=your-api-key npx -y -p @scrapi.ai/mcp-server scrapi-http
 # 또는 소스에서:
 SCRAPI_API_KEY=your-api-key node dist/http.js
 ```
@@ -672,7 +672,7 @@ Scrapi 대시보드에서 API 키가 올바르고 활성 상태인지 확인하�
 ### MCP 서버가 연결되지 않음
 
 1. Node.js 20+ 설치 확인
-2. `node /absolute/path/to/hashscraper-mcp-server/dist/index.js` 수동 실행하여 오류 확인
+2. `node /absolute/path/to/scrapi-mcp-server/dist/index.js` 수동 실행하여 오류 확인
 3. Claude Desktop 완전 종료 (macOS: Cmd+Q, Windows: Alt+F4) 후 재시작
 4. 설정 > Developer에서 서버가 목록에 있는지 확인
 
@@ -685,7 +685,7 @@ Claude Desktop을 최신 버전으로 업데이트: Claude 메뉴 → "Check for
 ## 지원
 
 - 이메일: help@scrapi.ai
-- 이슈: [GitHub Issues](https://github.com/bamchi/hashscraper-mcp-server/issues)
+- 이슈: [GitHub Issues](https://github.com/bamchi/scrapi-mcp-server/issues)
 
 ---
 

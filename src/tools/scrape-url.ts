@@ -19,7 +19,7 @@ export function registerScrapeUrlTool(server: McpServer) {
       const { url, format } = ScrapeUrlSchema.parse(params);
 
       try {
-        // 1. Request browser rendering via Hashscraper API
+        // 1. Request browser rendering via Scrapi API
         const response = await scrapeUrl({
           url,
           format,

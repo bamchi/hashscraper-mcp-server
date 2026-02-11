@@ -37,7 +37,7 @@
   "homepage": "https://scrapi.ai",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bamchi/hashscraper-mcp-server.git"
+    "url": "https://github.com/bamchi/scrapi-mcp-server.git"
   },
   "publishConfig": {
     "access": "public"

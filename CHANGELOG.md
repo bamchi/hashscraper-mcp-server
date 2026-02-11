@@ -12,7 +12,7 @@
 ## [1.2.0] - 2026-02-11
 
 ### Added
-- **Streamable HTTP transport** — Run as a standalone HTTP server via `npx @scrapi.ai/mcp-server-http` or `node dist/http.js`
+- **Streamable HTTP transport** — Run as a standalone HTTP server via `npx -p @scrapi.ai/mcp-server scrapi-http` or `node dist/http.js`
 - **`/api` endpoint** — Stateless Streamable HTTP endpoint with request logging and error tracking
 - **`/health` endpoint** — Health check with uptime, request count, and error stats
 - **Dual transport support** — Stdio (default, for Claude Desktop/Cursor/Cline) and Streamable HTTP (for web apps/remote deployment)
