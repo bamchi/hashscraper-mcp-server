@@ -47,6 +47,36 @@ const loggingMiddleware = (req: Request, _res: Response, next: NextFunction) => 
 };
 MCP_PATHS.forEach((p) => app.use(p, loggingMiddleware));
 
+// ── MCP Server Card (well-known discovery) ────
+app.get("/.well-known/mcp/server-card.json", (_req: Request, res: Response) => {
+  res.json({
+    $schema:
+      "https://static.modelcontextprotocol.io/schemas/mcp-server-card/v1.json",
+    version: "1.0",
+    serverInfo: {
+      name: "scrapi",
+      title: "Scrapi - Web Scraping for AI Agents",
+      version: "2.0.6",
+    },
+    description:
+      "Web scraping for AI agents. Converts URLs to clean, LLM-ready Markdown with anti-bot bypass. Powered by 8+ years of scraping expertise.",
+    transport: {
+      type: "streamable-http",
+      url: "https://scrapi.ai/mcp",
+    },
+    capabilities: {
+      tools: {},
+    },
+    authentication: {
+      type: "bearer",
+      description:
+        "Scrapi API key (get one free at https://scrapi.ai/dashboard)",
+    },
+    documentationUrl: "https://github.com/bamchi/scrapi-mcp-server",
+    iconUrl: "https://scrapi.ai/icon.png",
+  });
+});
+
 // ── Health check ───────────────────────────────
 app.get("/health", (_req: Request, res: Response) => {
   const uptimeMs = Date.now() - stats.startedAt.getTime();
