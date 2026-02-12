@@ -19,7 +19,7 @@
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
 </p>
 
-**⚡ 빠르고 안정적** — 7년 이상의 웹 크롤링 경험, 1,900개 이상의 프로덕션 크롤러, 검증된 anti-bot 처리 기술.
+**⚡ 빠르고 안정적** — 8년 이상의 웹 크롤링 경험, 1,900개 이상의 프로덕션 크롤러, 검증된 anti-bot 처리 기술.
 
 ## 이게 뭔가요?
 
@@ -663,7 +663,7 @@ export class ExampleApiClient {
 
 ## 왜 Scrapi인가?
 
-7년 이상의 웹 크롤링 경험을 가진 [Scrapi](https://scrapi.ai) 팀이 만들었습니다:
+8년 이상의 웹 크롤링 경험을 가진 [Scrapi](https://scrapi.ai) 팀이 만들었습니다:
 
 - ✅ 1,900개 이상의 프로덕션 크롤러
 - ✅ JavaScript 렌더링 지원
