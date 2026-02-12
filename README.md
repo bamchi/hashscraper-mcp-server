@@ -19,7 +19,7 @@
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
 </p>
 
-**⚡ Fast & Reliable** — Built on 7+ years of web scraping expertise, 1,900+ production crawlers, and battle-tested anti-bot handling.
+**⚡ Fast & Reliable** — Built on 8+ years of web scraping expertise, 1,900+ production crawlers, and battle-tested anti-bot handling.
 
 ## What is this?
 
@@ -684,7 +684,7 @@ export class ExampleApiClient {
 
 ## Why Scrapi?
 
-Built by the team behind [Scrapi](https://scrapi.ai), with 7+ years of web scraping experience:
+Built by the team behind [Scrapi](https://scrapi.ai), with 8+ years of web scraping experience:
 
 - ✅ 1,900+ production crawlers
 - ✅ JavaScript rendering support
