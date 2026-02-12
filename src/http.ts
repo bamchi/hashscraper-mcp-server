@@ -6,9 +6,16 @@ import type { Request, Response, NextFunction } from "express";
 import { createMcpServer } from "./server.js";
 
 const PORT = parseInt(process.env.PORT || "3000", 10);
-const HOST = process.env.HOST || "127.0.0.1";
+const BIND = process.env.BIND || "127.0.0.1";
+const ALLOWED_HOSTS = process.env.ALLOWED_HOSTS
+  ? process.env.ALLOWED_HOSTS.split(",")
+  : undefined;
 
-const app = createMcpExpressApp({ host: HOST });
+const app = createMcpExpressApp(
+  ALLOWED_HOSTS
+    ? { host: BIND, allowedHosts: ALLOWED_HOSTS }
+    : { host: BIND }
+);
 
 // ── Stats ──────────────────────────────────────
 const stats = {
@@ -78,13 +85,56 @@ app.post("/api", async (req: Request, res: Response) => {
   }
 });
 
-// GET and DELETE are not supported in stateless mode
-app.get("/api", (_req: Request, res: Response) => {
-  res.status(405).json({
-    jsonrpc: "2.0",
-    error: { code: -32000, message: "Method not allowed. Use POST." },
-    id: null,
-  });
+// GET /api — browser-friendly landing page
+app.get("/api", (req: Request, res: Response) => {
+  const accept = req.headers.accept || "";
+  if (!accept.includes("text/html")) {
+    res.status(405).json({
+      jsonrpc: "2.0",
+      error: { code: -32000, message: "Method not allowed. Use POST for MCP requests." },
+      id: null,
+    });
+    return;
+  }
+
+  res.status(200).send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scrapi MCP Server</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #e5e5e5; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .container { max-width: 560px; padding: 2.5rem; text-align: center; }
+    .logo { font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+    .logo span { color: #6366f1; }
+    .badge { display: inline-block; background: #1e1b4b; color: #a5b4fc; font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 1.5rem; letter-spacing: 0.05em; }
+    p { color: #a3a3a3; line-height: 1.7; margin-bottom: 1.25rem; font-size: 0.95rem; }
+    .endpoint { background: #171717; border: 1px solid #262626; border-radius: 0.5rem; padding: 1rem; margin: 1.5rem 0; font-family: 'SF Mono', Monaco, monospace; font-size: 0.85rem; color: #a5b4fc; word-break: break-all; }
+    .links { display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap; }
+    .links a { color: #818cf8; text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 0.5rem 1rem; border: 1px solid #312e81; border-radius: 0.375rem; transition: all 0.15s; }
+    .links a:hover { background: #1e1b4b; border-color: #4338ca; }
+    .divider { border: none; border-top: 1px solid #262626; margin: 1.5rem 0; }
+    code { background: #171717; padding: 0.15rem 0.4rem; border-radius: 0.25rem; font-size: 0.85rem; color: #c4b5fd; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">Scrapi<span>.ai</span></div>
+    <div class="badge">MCP STREAMABLE HTTP</div>
+    <p>This is a <strong>Model Context Protocol</strong> endpoint for AI agents. It accepts <code>POST</code> requests only and is not meant to be opened in a browser.</p>
+    <div class="endpoint">POST https://scrapi.ai/api</div>
+    <p>Connect your AI client (Claude Desktop, Cursor, Windsurf, etc.) to this endpoint to start scraping the web with AI.</p>
+    <hr class="divider">
+    <div class="links">
+      <a href="https://scrapi.ai">Homepage</a>
+      <a href="https://github.com/bamchi/scrapi-mcp-server">GitHub</a>
+      <a href="https://www.npmjs.com/package/@scrapi.ai/mcp-server">npm</a>
+    </div>
+  </div>
+</body>
+</html>`);
 });
 
 app.delete("/api", (_req: Request, res: Response) => {
@@ -96,8 +146,8 @@ app.delete("/api", (_req: Request, res: Response) => {
 });
 
 // ── Start server ───────────────────────────────
-app.listen(PORT, HOST, () => {
-  console.error(`Scrapi MCP server running on http://${HOST}:${PORT}/api`);
+app.listen(PORT, BIND, () => {
+  console.error(`Scrapi MCP server running on http://${BIND}:${PORT}/api`);
 });
 
 process.on("SIGINT", () => {
