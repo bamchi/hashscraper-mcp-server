@@ -1,7 +1,7 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/logo-dark-horizontal.png">
-    <source media="(prefers-color-scheme: light)" srcset="assets/logo-white-horizontal.png">
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo-dark-horizontal-trans.png">
+    <source media="(prefers-color-scheme: light)" srcset="assets/logo-white-horizontal-trans.png">
     <img alt="Scrapi AI" src="assets/logo-white-horizontal.png" width="360">
   </picture>
 </p>
