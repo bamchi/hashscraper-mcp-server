@@ -256,15 +256,19 @@ Edit `~/.claude.json` or project `.mcp.json`:
 
 Connect via Streamable HTTP — no Node.js installation needed on the client side.
 
+Two endpoints are available (both work identically):
+- `https://scrapi.ai/api` — default
+- `https://scrapi.ai/mcp` — standard MCP path
+
 **Cursor** (`.cursor/mcp.json`):
 
 ```json
 {
   "mcpServers": {
     "scrapi": {
-      "url": "https://scrapi.ai/api",
+      "url": "https://scrapi.ai/mcp",
       "headers": {
-        "X-API-Key": "your-api-key"
+        "Authorization": "Bearer your-api-key"
       }
     }
   }
@@ -274,8 +278,8 @@ Connect via Streamable HTTP — no Node.js installation needed on the client sid
 **Claude Code** (CLI):
 
 ```bash
-claude mcp add --transport http scrapi https://scrapi.ai/api \
-  --header "X-API-Key: your-api-key"
+claude mcp add --transport http scrapi https://scrapi.ai/mcp \
+  --header "Authorization: Bearer your-api-key"
 ```
 
 **Cline** (`cline_mcp_settings.json`):
@@ -285,9 +289,9 @@ claude mcp add --transport http scrapi https://scrapi.ai/api \
   "mcpServers": {
     "scrapi": {
       "type": "streamableHttp",
-      "url": "https://scrapi.ai/api",
+      "url": "https://scrapi.ai/mcp",
       "headers": {
-        "X-API-Key": "your-api-key"
+        "Authorization": "Bearer your-api-key"
       }
     }
   }
@@ -303,9 +307,9 @@ claude mcp add --transport http scrapi https://scrapi.ai/api \
       "command": "npx",
       "args": [
         "mcp-remote",
-        "https://scrapi.ai/api",
+        "https://scrapi.ai/mcp",
         "--header",
-        "X-API-Key: your-api-key"
+        "Authorization: Bearer your-api-key"
       ]
     }
   }
@@ -325,7 +329,7 @@ SCRAPI_API_KEY=your-api-key npx -y -p @scrapi.ai/mcp-server scrapi-http
 SCRAPI_API_KEY=your-api-key node dist/http.js
 ```
 
-The server starts at `http://localhost:3000/api`. Configure with `PORT` and `HOST` environment variables. Replace the URL in the client configurations above with your self-hosted URL.
+The server starts at `http://localhost:3000` with endpoints at `/api` and `/mcp`. Configure with `PORT` and `HOST` environment variables. Replace the URL in the client configurations above with your self-hosted URL.
 
 **Health check:** `GET http://localhost:3000/health`
 
