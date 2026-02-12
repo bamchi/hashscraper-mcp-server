@@ -1,7 +1,16 @@
 import axios, { AxiosError } from "axios";
+import { AsyncLocalStorage } from "node:async_hooks";
 
 const API_URL = process.env.SCRAPI_API_URL || process.env.HASHSCRAPER_API_URL || "https://www.hashscraper.com";
 const API_KEY = process.env.SCRAPI_API_KEY || process.env.HASHSCRAPER_API_KEY;
+
+// 요청별 API 키 컨텍스트 (Streamable HTTP용)
+const apiKeyStore = new AsyncLocalStorage<string>();
+
+// Streamable HTTP에서 요청별 키를 설정하는 wrapper
+export function runWithApiKey<T>(apiKey: string, fn: () => T): T {
+  return apiKeyStore.run(apiKey, fn);
+}
 
 // 디버그용: 현재 사용 중인 API URL 반환
 export function getApiUrl(): string {
@@ -9,10 +18,14 @@ export function getApiUrl(): string {
 }
 
 function getApiKey(): string {
-  if (!API_KEY) {
-    throw new Error("SCRAPI_API_KEY environment variable is not set. (HASHSCRAPER_API_KEY also accepted)");
-  }
-  return API_KEY;
+  // 1순위: 요청별 키 (Streamable HTTP)
+  const perRequestKey = apiKeyStore.getStore();
+  if (perRequestKey) return perRequestKey;
+
+  // 2순위: 환경변수 (stdio 모드)
+  if (API_KEY) return API_KEY;
+
+  throw new Error("SCRAPI_API_KEY environment variable is not set. (HASHSCRAPER_API_KEY also accepted)");
 }
 
 // MCP 모드 여부 (hsmcp_ 프리픽스)

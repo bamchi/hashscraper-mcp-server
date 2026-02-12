@@ -1,0 +1,14 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required:
+      - scrapiApiKey
+    properties:
+      scrapiApiKey:
+        type: string
+        description: "API key for Scrapi.ai web scraping service. Get yours at https://scrapi.ai"
+  commandFunction: |-
+    (config) => ({ command: 'node', args: ['dist/index.js'], env: { SCRAPI_API_KEY: config.scrapiApiKey } })

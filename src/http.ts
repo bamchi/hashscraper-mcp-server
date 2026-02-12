@@ -4,6 +4,7 @@ import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/
 import { createMcpExpressApp } from "@modelcontextprotocol/sdk/server/express.js";
 import type { Request, Response, NextFunction } from "express";
 import { createMcpServer } from "./server.js";
+import { runWithApiKey } from "./utils/api.js";
 
 const PORT = parseInt(process.env.PORT || "3000", 10);
 const BIND = process.env.BIND || "127.0.0.1";
@@ -25,8 +26,11 @@ const stats = {
   lastRequestAt: null as Date | null,
 };
 
+// ── MCP endpoint paths ───────────────────────────
+const MCP_PATHS = ["/api", "/mcp"];
+
 // ── Request logging middleware ──────────────────
-app.use("/api", (req: Request, _res: Response, next: NextFunction) => {
+const loggingMiddleware = (req: Request, _res: Response, next: NextFunction) => {
   if (req.method === "POST") {
     stats.requests++;
     stats.lastRequestAt = new Date();
@@ -40,7 +44,8 @@ app.use("/api", (req: Request, _res: Response, next: NextFunction) => {
     );
   }
   next();
-});
+};
+MCP_PATHS.forEach((p) => app.use(p, loggingMiddleware));
 
 // ── Health check ───────────────────────────────
 app.get("/health", (_req: Request, res: Response) => {
@@ -57,8 +62,26 @@ app.get("/health", (_req: Request, res: Response) => {
   });
 });
 
-// ── MCP Streamable HTTP endpoint ───────────────
-app.post("/api", async (req: Request, res: Response) => {
+// ── MCP Streamable HTTP handler ───────────────
+const handleMcpPost = async (req: Request, res: Response) => {
+  // API 키 추출 (Authorization: Bearer hsmcp_xxx)
+  const authHeader = req.headers.authorization;
+  const apiKey = authHeader?.startsWith("Bearer ")
+    ? authHeader.slice(7).trim()
+    : undefined;
+
+  if (!apiKey) {
+    res.status(401).json({
+      jsonrpc: "2.0",
+      error: {
+        code: -32001,
+        message: "Authorization required. Use 'Authorization: Bearer <api-key>' header.",
+      },
+      id: (req.body as any)?.id ?? null,
+    });
+    return;
+  }
+
   const server = createMcpServer();
   const transport = new StreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
@@ -66,7 +89,9 @@ app.post("/api", async (req: Request, res: Response) => {
 
   try {
     await server.connect(transport);
-    await transport.handleRequest(req, res, req.body);
+    await runWithApiKey(apiKey, () =>
+      transport.handleRequest(req, res, req.body)
+    );
 
     res.on("close", () => {
       transport.close();
@@ -83,10 +108,10 @@ app.post("/api", async (req: Request, res: Response) => {
       });
     }
   }
-});
+};
 
-// GET /api — browser-friendly landing page
-app.get("/api", (req: Request, res: Response) => {
+// GET handler — browser-friendly landing page
+const handleMcpGet = (req: Request, res: Response) => {
   const accept = req.headers.accept || "";
   if (!accept.includes("text/html")) {
     res.status(405).json({
@@ -135,19 +160,26 @@ app.get("/api", (req: Request, res: Response) => {
   </div>
 </body>
 </html>`);
-});
+};
 
-app.delete("/api", (_req: Request, res: Response) => {
+const handleMethodNotAllowed = (_req: Request, res: Response) => {
   res.status(405).json({
     jsonrpc: "2.0",
     error: { code: -32000, message: "Method not allowed." },
     id: null,
   });
+};
+
+// Register handlers for all MCP paths
+MCP_PATHS.forEach((p) => {
+  app.post(p, handleMcpPost);
+  app.get(p, handleMcpGet);
+  app.delete(p, handleMethodNotAllowed);
 });
 
 // ── Start server ───────────────────────────────
 app.listen(PORT, BIND, () => {
-  console.error(`Scrapi MCP server running on http://${BIND}:${PORT}/api`);
+  console.error(`Scrapi MCP server running on http://${BIND}:${PORT} (endpoints: /api, /mcp)`);
 });
 
 process.on("SIGINT", () => {
