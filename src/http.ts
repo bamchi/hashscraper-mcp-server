@@ -93,6 +93,13 @@ app.get("/health", (_req: Request, res: Response) => {
 });
 
 // ── MCP Streamable HTTP handler ───────────────
+// Read-only MCP methods that don't require authentication (allows Smithery scanning)
+const MCP_PUBLIC_METHODS = new Set([
+  "initialize",
+  "notifications/initialized",
+  "tools/list",
+]);
+
 const handleMcpPost = async (req: Request, res: Response) => {
   // API 키 추출 (Authorization: Bearer hsmcp_xxx)
   const authHeader = req.headers.authorization;
@@ -100,7 +107,11 @@ const handleMcpPost = async (req: Request, res: Response) => {
     ? authHeader.slice(7).trim()
     : undefined;
 
-  if (!apiKey) {
+  const body = req.body as { method?: string; id?: unknown } | undefined;
+  const method = body?.method;
+  const isPublic = method != null && MCP_PUBLIC_METHODS.has(method);
+
+  if (!apiKey && !isPublic) {
     res.status(401).json({
       jsonrpc: "2.0",
       error: {
@@ -119,9 +130,14 @@ const handleMcpPost = async (req: Request, res: Response) => {
 
   try {
     await server.connect(transport);
-    await runWithApiKey(apiKey, () =>
-      transport.handleRequest(req, res, req.body)
-    );
+
+    if (apiKey) {
+      await runWithApiKey(apiKey, () =>
+        transport.handleRequest(req, res, req.body)
+      );
+    } else {
+      await transport.handleRequest(req, res, req.body);
+    }
 
     res.on("close", () => {
       transport.close();
