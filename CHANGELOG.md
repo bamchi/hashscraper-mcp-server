@@ -6,7 +6,7 @@
 - **Rebranded to Scrapi** — Package renamed from `@hashscraper/mcp-server` to `@scrapi.ai/mcp-server`
 - **CLI commands** — `hashscraper-mcp` → `scrapi`, `hashscraper-mcp-http` → `scrapi-http`
 - **HTTP endpoint** — `/mcp-api` → `/api`
-- **Environment variables** — `SCRAPI_API_KEY` / `SCRAPI_API_URL` (legacy `HASHSCRAPER_*` still accepted)
+- **Environment variables** — `SCRAPI_API_KEY` only (`SCRAPI_API_URL` hardcoded to https://scrapi.ai)
 - **Domain** — `mcp.hashscraper.com` → `scrapi.ai`
 
 ## [1.2.0] - 2026-02-11

@@ -459,9 +459,19 @@ Check your API usage and remaining credits.
 
 ## Local Development
 
-For testing with a local Scrapi backend, add `SCRAPI_API_URL` to your configuration:
+For testing with a local Scrapi backend, clone the repository and modify the hardcoded API URL in `src/utils/api.ts`:
+
+```typescript
+const API_URL = "http://localhost:3000"; // Change from "https://scrapi.ai"
+```
+
+Then build and run:
 
 **Stdio mode:**
+
+```bash
+npm run build
+```
 
 ```json
 {
@@ -470,8 +480,7 @@ For testing with a local Scrapi backend, add `SCRAPI_API_URL` to your configurat
       "command": "node",
       "args": ["/absolute/path/to/scrapi-mcp-server/dist/index.js"],
       "env": {
-        "SCRAPI_API_KEY": "your-api-key",
-        "SCRAPI_API_URL": "http://localhost:3000"
+        "SCRAPI_API_KEY": "your-api-key"
       }
     }
   }
@@ -481,7 +490,7 @@ For testing with a local Scrapi backend, add `SCRAPI_API_URL` to your configurat
 **Streamable HTTP mode:**
 
 ```bash
-SCRAPI_API_KEY=your-api-key SCRAPI_API_URL=http://localhost:3000 node dist/http.js
+npm run build && SCRAPI_API_KEY=your-api-key node dist/http.js
 ```
 
 ---

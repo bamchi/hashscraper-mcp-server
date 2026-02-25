@@ -459,9 +459,19 @@ API 사용량과 남은 크레딧을 확인합니다.
 
 ## 로컬 개발
 
-로컬 Scrapi 백엔드로 테스트하려면 `SCRAPI_API_URL`을 설정에 추가하세요:
+로컬 Scrapi 백엔드로 테스트하려면 저장소를 클론하고 `src/utils/api.ts`의 하드코딩된 API URL을 수정하세요:
+
+```typescript
+const API_URL = "http://localhost:3000"; // "https://scrapi.ai"에서 변경
+```
+
+빌드 후 실행:
 
 **Stdio 모드:**
+
+```bash
+npm run build
+```
 
 ```json
 {
@@ -470,8 +480,7 @@ API 사용량과 남은 크레딧을 확인합니다.
       "command": "node",
       "args": ["/absolute/path/to/scrapi-mcp-server/dist/index.js"],
       "env": {
-        "SCRAPI_API_KEY": "your-api-key",
-        "SCRAPI_API_URL": "http://localhost:3000"
+        "SCRAPI_API_KEY": "your-api-key"
       }
     }
   }
@@ -481,7 +490,7 @@ API 사용량과 남은 크레딧을 확인합니다.
 **Streamable HTTP 모드:**
 
 ```bash
-SCRAPI_API_KEY=your-api-key SCRAPI_API_URL=http://localhost:3000 node dist/http.js
+npm run build && SCRAPI_API_KEY=your-api-key node dist/http.js
 ```
 
 ---
