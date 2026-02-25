@@ -49,7 +49,6 @@ async function getMcpUsage() {
     "",
     `| Item | Value |`,
     `|------|-------|`,
-    `| Mode | MCP |`,
     `| Plan | ${d.plan || "none"} |`,
     `| Subscription Credits | ${(d.subscription_credits ?? 0).toLocaleString()} |`,
     `| Purchased Credits | ${(d.purchased_credits ?? 0).toLocaleString()} |`,
