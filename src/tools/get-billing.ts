@@ -5,7 +5,6 @@ import {
   getMcpPlans,
   getMcpDailyUsage,
   getMcpSpendingLimits,
-  isMcpMode,
   formatCreditWarning,
 } from "../utils/api.js";
 
@@ -28,22 +27,10 @@ const BillingSchema = z.object({
 export function registerGetBillingTool(server: McpServer) {
   server.tool(
     "get_billing",
-    "Retrieve MCP billing information: subscription details, available plans, daily usage history, or spending limits. Requires MCP API key (hsmcp_ prefix).",
+    "Retrieve MCP billing information: subscription details, available plans, daily usage history, or spending limits.",
     BillingSchema.shape,
     async (params) => {
       const { action, start_date, end_date } = BillingSchema.parse(params);
-
-      if (!isMcpMode()) {
-        return {
-          isError: true,
-          content: [
-            {
-              type: "text" as const,
-              text: "Error: This tool requires an MCP API key (hsmcp_ prefix). Your current key is a Legacy key.",
-            },
-          ],
-        };
-      }
 
       try {
         switch (action) {

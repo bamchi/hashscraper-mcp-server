@@ -1,8 +1,8 @@
 import axios, { AxiosError } from "axios";
 import { AsyncLocalStorage } from "node:async_hooks";
 
-const API_URL = process.env.SCRAPI_API_URL || process.env.HASHSCRAPER_API_URL || "https://www.hashscraper.com";
-const API_KEY = process.env.SCRAPI_API_KEY || process.env.HASHSCRAPER_API_KEY;
+const API_URL = "https://scrapi.ai";
+const API_KEY = process.env.SCRAPI_API_KEY;
 
 // 요청별 API 키 컨텍스트 (Streamable HTTP용)
 const apiKeyStore = new AsyncLocalStorage<string>();
@@ -10,11 +10,6 @@ const apiKeyStore = new AsyncLocalStorage<string>();
 // Streamable HTTP에서 요청별 키를 설정하는 wrapper
 export function runWithApiKey<T>(apiKey: string, fn: () => T): T {
   return apiKeyStore.run(apiKey, fn);
-}
-
-// 디버그용: 현재 사용 중인 API URL 반환
-export function getApiUrl(): string {
-  return API_URL;
 }
 
 function getApiKey(): string {
@@ -25,12 +20,7 @@ function getApiKey(): string {
   // 2순위: 환경변수 (stdio 모드)
   if (API_KEY) return API_KEY;
 
-  throw new Error("SCRAPI_API_KEY environment variable is not set. (HASHSCRAPER_API_KEY also accepted)");
-}
-
-// MCP 모드 여부 (hsmcp_ 프리픽스)
-export function isMcpMode(): boolean {
-  return getApiKey().startsWith("hsmcp_");
+  throw new Error("SCRAPI_API_KEY environment variable is not set.");
 }
 
 // 마지막 응답의 MCP 헤더 정보
@@ -141,31 +131,17 @@ export interface ScrapeUrlResponse {
   error?: string;
 }
 
-export interface GetUsageResponse {
-  success: boolean;
-  data: {
-    plan: string;
-    credits_total: number;
-    credits_used: number;
-    credits_remaining: number;
-    reset_date: string;
-  };
-  error?: string;
-}
-
 // MCP Billing Types
 export interface McpCreditsResponse {
   success: boolean;
   data: {
     mode: "mcp" | "legacy";
-    // MCP mode fields
     subscription_credits?: number;
     purchased_credits?: number;
     total_remaining?: number;
     plan?: string;
     current_period_start?: string;
     current_period_end?: string;
-    // Legacy mode fields
     credits_total?: number;
     credits_used?: number;
     credits_remaining?: number;
@@ -267,11 +243,6 @@ export async function scrapeUrl(options: ScrapeUrlOptions): Promise<ScrapeUrlRes
     },
   });
 
-  return response.data;
-}
-
-export async function getUsage(): Promise<GetUsageResponse> {
-  const response = await client.get<GetUsageResponse>("/api/usage");
   return response.data;
 }
 
