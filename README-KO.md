@@ -236,9 +236,7 @@ npm install && npm run build
 
 Streamable HTTP로 연결 — 클라이언트 측 Node.js 설치가 필요 없습니다.
 
-두 엔드포인트 모두 동일하게 작동합니다:
-- `https://scrapi.ai/api` — 기본
-- `https://scrapi.ai/mcp` — 표준 MCP 경로
+엔드포인트: `https://scrapi.ai/mcp`
 
 **Cursor** (`.cursor/mcp.json`):
 
@@ -309,7 +307,7 @@ SCRAPI_API_KEY=your-api-key npx -y -p @scrapi.ai/mcp-server scrapi-http
 SCRAPI_API_KEY=your-api-key node dist/http.js
 ```
 
-서버가 `http://localhost:3000`에서 시작되며 `/api`와 `/mcp` 엔드포인트를 제공합니다. `PORT`와 `HOST` 환경 변수로 설정 가능합니다. 위 클라이언트 설정에서 URL만 self-host URL로 교체하면 됩니다.
+서버가 `http://localhost:3000`에서 시작되며 MCP 엔드포인트는 `/mcp`입니다. `PORT`와 `HOST` 환경 변수로 설정 가능합니다. 위 클라이언트 설정에서 URL만 self-host URL로 교체하면 됩니다 (예: `http://localhost:3000/mcp`).
 
 **헬스체크:** `GET http://localhost:3000/health`
 

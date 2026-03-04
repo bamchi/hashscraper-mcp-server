@@ -256,9 +256,7 @@ Edit `~/.claude.json` or project `.mcp.json`:
 
 Connect via Streamable HTTP — no Node.js installation needed on the client side.
 
-Two endpoints are available (both work identically):
-- `https://scrapi.ai/api` — default
-- `https://scrapi.ai/mcp` — standard MCP path
+Endpoint: `https://scrapi.ai/mcp`
 
 **Cursor** (`.cursor/mcp.json`):
 
@@ -329,7 +327,7 @@ SCRAPI_API_KEY=your-api-key npx -y -p @scrapi.ai/mcp-server scrapi-http
 SCRAPI_API_KEY=your-api-key node dist/http.js
 ```
 
-The server starts at `http://localhost:3000` with endpoints at `/api` and `/mcp`. Configure with `PORT` and `HOST` environment variables. Replace the URL in the client configurations above with your self-hosted URL.
+The server starts at `http://localhost:3000` with the MCP endpoint at `/mcp`. Configure with `PORT` and `HOST` environment variables. Replace the URL in the client configurations above with your self-hosted URL (e.g. `http://localhost:3000/mcp`).
 
 **Health check:** `GET http://localhost:3000/health`
 

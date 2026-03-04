@@ -27,7 +27,7 @@ const stats = {
 };
 
 // ── MCP endpoint paths ───────────────────────────
-const MCP_PATHS = ["/api", "/mcp"];
+const MCP_PATHS = ["/mcp"];
 
 // ── Request logging middleware ──────────────────
 const loggingMiddleware = (req: Request, _res: Response, next: NextFunction) => {
@@ -195,7 +195,7 @@ const handleMcpGet = (req: Request, res: Response) => {
     <div class="logo">Scrapi<span>.ai</span></div>
     <div class="badge">MCP STREAMABLE HTTP</div>
     <p>This is a <strong>Model Context Protocol</strong> endpoint for AI agents. It accepts <code>POST</code> requests only and is not meant to be opened in a browser.</p>
-    <div class="endpoint">POST https://scrapi.ai/api</div>
+    <div class="endpoint">POST https://scrapi.ai/mcp</div>
     <p>Connect your AI client (Claude Desktop, Cursor, Windsurf, etc.) to this endpoint to start scraping the web with AI.</p>
     <hr class="divider">
     <div class="links">
@@ -225,7 +225,7 @@ MCP_PATHS.forEach((p) => {
 
 // ── Start server ───────────────────────────────
 app.listen(PORT, BIND, () => {
-  console.error(`Scrapi MCP server running on http://${BIND}:${PORT} (endpoints: /api, /mcp)`);
+  console.error(`Scrapi MCP server running on http://${BIND}:${PORT} (endpoint: /mcp)`);
 });
 
 process.on("SIGINT", () => {
