@@ -5,6 +5,10 @@ import { createMcpExpressApp } from "@modelcontextprotocol/sdk/server/express.js
 import type { Request, Response, NextFunction } from "express";
 import { createMcpServer } from "./server.js";
 import { runWithApiKey } from "./utils/api.js";
+import { createRequire } from "node:module";
+
+const require = createRequire(import.meta.url);
+const { version: PKG_VERSION } = require("../package.json");
 
 const PORT = parseInt(process.env.PORT || "3000", 10);
 const BIND = process.env.BIND || "127.0.0.1";
@@ -56,7 +60,7 @@ app.get("/.well-known/mcp/server-card.json", (_req: Request, res: Response) => {
     serverInfo: {
       name: "scrapi",
       title: "Scrapi - Web Scraping for AI Agents",
-      version: "2.0.6",
+      version: PKG_VERSION,
     },
     description:
       "Web scraping for AI agents. Converts URLs to clean, LLM-ready Markdown with anti-bot bypass. Powered by 8+ years of scraping expertise.",
