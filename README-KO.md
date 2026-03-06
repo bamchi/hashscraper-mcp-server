@@ -720,6 +720,13 @@ export class ExampleApiClient {
 
 Scrapi 대시보드에서 API 키가 올바르고 활성 상태인지 확인하세요.
 
+### npx가 이전 캐시 버전을 사용하는 경우
+
+업그레이드 후에도 이전 동작이 보이면 npx 캐시를 삭제하세요:
+```bash
+npx clear-npx-cache
+```
+
 ### MCP 서버가 연결되지 않음
 
 1. Node.js 20+ 설치 확인

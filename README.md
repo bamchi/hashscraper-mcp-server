@@ -721,6 +721,13 @@ Make sure your API key is provided via one of these methods:
 
 Verify that your API key is correct and active in your Scrapi dashboard.
 
+### npx using an old cached version
+
+If you upgraded but still see old behavior, clear the npx cache:
+```bash
+npx clear-npx-cache
+```
+
 ### MCP Server not connecting
 
 1. Ensure Node.js 20+ is installed
