@@ -82,6 +82,11 @@ No installation needed. Just configure your MCP client to use `npx`.
 }
 ```
 
+> **Tip:** You can also pass the API key via CLI argument instead of env var:
+> ```json
+> "args": ["-y", "@scrapi.ai/mcp-server", "--api-key", "your-api-key"]
+> ```
+
 > See [Step 2](#step-2-configure-mcp-server) for where to put this configuration.
 
 ### Option B: Install from Source
@@ -234,19 +239,28 @@ Create or edit `.cursor/mcp.json` in your project root:
 
 ### Claude Code
 
-Edit `~/.claude.json` or project `.mcp.json`:
+**Option 1: CLI command (Recommended)**
 
-**Configuration (npx):**
+```bash
+claude mcp add scrapi-ai -s user -e SCRAPI_API_KEY=your-api-key -- npx -y @scrapi.ai/mcp-server
+```
+
+Or with `--api-key`:
+
+```bash
+claude mcp add scrapi-ai -s user -- npx -y @scrapi.ai/mcp-server --api-key your-api-key
+```
+
+**Option 2: Edit config file**
+
+Edit `~/.claude.json` or project `.mcp.json`:
 
 ```json
 {
   "mcpServers": {
     "scrapi": {
       "command": "npx",
-      "args": ["-y", "@scrapi.ai/mcp-server"],
-      "env": {
-        "SCRAPI_API_KEY": "your-api-key"
-      }
+      "args": ["-y", "@scrapi.ai/mcp-server", "--api-key", "your-api-key"]
     }
   }
 }
@@ -699,7 +713,9 @@ Built by the team behind [Scrapi](https://scrapi.ai), with 8+ years of web scrap
 
 ### "API key is required"
 
-Make sure your `SCRAPI_API_KEY` environment variable is set correctly in the configuration file.
+Make sure your API key is provided via one of these methods:
+- **Environment variable**: Set `SCRAPI_API_KEY` in your configuration
+- **CLI argument**: Pass `--api-key your-key` in the args
 
 ### "Invalid API key"
 

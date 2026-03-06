@@ -1,6 +1,6 @@
 {
   "name": "@scrapi.ai/mcp-server",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Scrapi MCP Server - Web scraping for AI agents. Bypass anti-bot systems and get clean, LLM-ready content via MCP protocol.",
   "mcpName": "io.github.bamchi/scrapi",
   "type": "module",

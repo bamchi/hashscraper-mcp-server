@@ -82,6 +82,11 @@ Scrapi MCP Server는 두 가지 트랜스포트 모드를 지원합니다:
 }
 ```
 
+> **Tip:** 환경변수 대신 CLI 인자로 API 키를 전달할 수도 있습니다:
+> ```json
+> "args": ["-y", "@scrapi.ai/mcp-server", "--api-key", "your-api-key"]
+> ```
+
 > 이 설정을 어디에 넣어야 하는지는 [2단계](#2단계-mcp-서버-설정)를 참고하세요.
 
 ### 방법 B: 소스에서 설치
@@ -227,6 +232,35 @@ npm install && npm run build
       "env": {
         "SCRAPI_API_KEY": "your-api-key"
       }
+    }
+  }
+}
+```
+
+### Claude Code
+
+**방법 1: CLI 명령어 (권장)**
+
+```bash
+claude mcp add scrapi-ai -s user -e SCRAPI_API_KEY=your-api-key -- npx -y @scrapi.ai/mcp-server
+```
+
+또는 `--api-key` 사용:
+
+```bash
+claude mcp add scrapi-ai -s user -- npx -y @scrapi.ai/mcp-server --api-key your-api-key
+```
+
+**방법 2: 설정 파일 수정**
+
+`~/.claude.json` 또는 프로젝트 `.mcp.json` 수정:
+
+```json
+{
+  "mcpServers": {
+    "scrapi": {
+      "command": "npx",
+      "args": ["-y", "@scrapi.ai/mcp-server", "--api-key", "your-api-key"]
     }
   }
 }
@@ -678,7 +712,9 @@ export class ExampleApiClient {
 
 ### "API key is required"
 
-설정 파일에서 `SCRAPI_API_KEY` 환경 변수가 올바르게 설정되어 있는지 확인하세요.
+아래 방법 중 하나로 API 키가 설정되어 있는지 확인하세요:
+- **환경변수**: 설정에서 `SCRAPI_API_KEY` 설정
+- **CLI 인자**: args에 `--api-key your-key` 추가
 
 ### "Invalid API key"
 

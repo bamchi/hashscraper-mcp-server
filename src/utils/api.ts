@@ -2,7 +2,14 @@ import axios, { AxiosError } from "axios";
 import { AsyncLocalStorage } from "node:async_hooks";
 
 const API_URL = "https://scrapi.ai";
-const API_KEY = process.env.SCRAPI_API_KEY;
+
+function resolveApiKey(): string | undefined {
+  const idx = process.argv.indexOf("--api-key");
+  if (idx !== -1 && process.argv[idx + 1]) return process.argv[idx + 1];
+  return process.env.SCRAPI_API_KEY;
+}
+
+const API_KEY = resolveApiKey();
 
 // 요청별 API 키 컨텍스트 (Streamable HTTP용)
 const apiKeyStore = new AsyncLocalStorage<string>();
@@ -20,7 +27,7 @@ function getApiKey(): string {
   // 2순위: 환경변수 (stdio 모드)
   if (API_KEY) return API_KEY;
 
-  throw new Error("SCRAPI_API_KEY environment variable is not set.");
+  throw new Error("API key is required. Set SCRAPI_API_KEY env var or pass --api-key <key>.");
 }
 
 // 마지막 응답의 MCP 헤더 정보
