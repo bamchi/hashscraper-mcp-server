@@ -15,7 +15,8 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@scrapi.ai/mcp-server"><img src="https://img.shields.io/npm/v/@scrapi.ai/mcp-server.svg" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/@scrapi.ai/mcp-server"><img src="https://img.shields.io/npm/v/@scrapi.ai/mcp-server.svg?label=%40scrapi.ai%2Fmcp-server" alt="npm version (@scrapi.ai/mcp-server)"></a>
+  <a href="https://www.npmjs.com/package/@hashscraper/mcp-server"><img src="https://img.shields.io/npm/v/@hashscraper/mcp-server.svg?label=%40hashscraper%2Fmcp-server&color=blue" alt="npm version (@hashscraper/mcp-server)"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
 </p>
 
@@ -86,6 +87,8 @@ No installation needed. Just configure your MCP client to use `npx`.
 > ```json
 > "args": ["-y", "@scrapi.ai/mcp-server", "--api-key", "your-api-key"]
 > ```
+
+> **Also available as [`@hashscraper/mcp-server`](https://www.npmjs.com/package/@hashscraper/mcp-server).** Both package names are interchangeable — same code, same behavior. Use whichever matches the convention you found in docs or guides.
 
 > See [Step 2](#step-2-configure-mcp-server) for where to put this configuration.
 

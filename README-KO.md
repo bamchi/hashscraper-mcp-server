@@ -15,7 +15,8 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@scrapi.ai/mcp-server"><img src="https://img.shields.io/npm/v/@scrapi.ai/mcp-server.svg" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/@scrapi.ai/mcp-server"><img src="https://img.shields.io/npm/v/@scrapi.ai/mcp-server.svg?label=%40scrapi.ai%2Fmcp-server" alt="npm version (@scrapi.ai/mcp-server)"></a>
+  <a href="https://www.npmjs.com/package/@hashscraper/mcp-server"><img src="https://img.shields.io/npm/v/@hashscraper/mcp-server.svg?label=%40hashscraper%2Fmcp-server&color=blue" alt="npm version (@hashscraper/mcp-server)"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
 </p>
 
@@ -86,6 +87,8 @@ Scrapi MCP Server는 두 가지 트랜스포트 모드를 지원합니다:
 > ```json
 > "args": ["-y", "@scrapi.ai/mcp-server", "--api-key", "your-api-key"]
 > ```
+
+> **[`@hashscraper/mcp-server`](https://www.npmjs.com/package/@hashscraper/mcp-server) 이름으로도 설치 가능합니다.** 두 패키지명은 동일한 코드를 실행하므로, 문서나 가이드에서 본 이름 그대로 사용하시면 됩니다.
 
 > 이 설정을 어디에 넣어야 하는지는 [2단계](#2단계-mcp-서버-설정)를 참고하세요.
 

@@ -1,0 +1,42 @@
+{
+  "name": "@hashscraper/mcp-server",
+  "version": "3.2.0",
+  "description": "Hashscraper MCP Server — official alias for @scrapi.ai/mcp-server. Web scraping for AI agents with anti-bot bypass and clean LLM-ready content.",
+  "type": "module",
+  "bin": {
+    "mcp-server": "bin/shim.mjs",
+    "hashscraper-mcp": "bin/shim.mjs"
+  },
+  "files": [
+    "bin",
+    "README.md"
+  ],
+  "dependencies": {
+    "@scrapi.ai/mcp-server": "3.2.0"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "hashscraper",
+    "web-scraping",
+    "scraping",
+    "ai",
+    "ai-agent",
+    "llm",
+    "anti-bot"
+  ],
+  "author": "Hashscraper",
+  "license": "MIT",
+  "homepage": "https://hashscraper.com/mcp",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bamchi/scrapi-mcp-server.git",
+    "directory": "packages/hashscraper-alias"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
